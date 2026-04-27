@@ -1,418 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriMart</title>
+    <title>AgriMart - Farmer to Retail</title>
     <link rel="stylesheet" href="css/global.css">
-    <style>
-        /* Categories Container */
-        .categories-box {
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Decorative Side Images */
-        .sideimg {
-            position: absolute;
-            width: 180px;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.9;
-        }
-
-        .deco-top {
-            top: 0;
-            right: 0;
-            transform: translate(10%, -10%);
-        }
-
-        .Sidebottomimg {
-            bottom: 0;
-            left: 0;
-            transform: translate(-10%, 10%);
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <img src="assets/images/logo.png" alt="Website Logo" height="50" width="150">
+<!-- ===== HEADER / NAV for Landing pages  ===== -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🌾</span>
+            Agri<span>Mart</span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#categories">Products</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#team">Order</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <button class="btn-primary">Get Started</button>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+    <span class="hero-badge">🌿 Farm to Retail Platform</span>
+    <h1>From <span>Field</span> to<br>Your Store</h1>
+    <p>Connecting farmers to retailers through a transparent, efficient, and sustainable supply chain.</p>
+    <div class="hero-btns">
+        <button class="btn-hero solid">Explore Products</button>
+        <button class="btn-hero outline">Learn More</button>
+    </div>
+</section>
+
+<!-- ===== CATEGORIES  (categories to show that which and what type of product are there in website example prdt)===== -->
+
+<section class="categories-section" id="categories">
+    <div class="categories-head">
+        <h2 class="section-title">Available Product Categories</h2>
+        <p class="section-sub">Real-time inventory from local farmers directly to retail hubs — no middlemen.</p>
+    </div>
+    <div class="products-grid">
+
+        <div class="product-card anim anim-1">
+            <div class="product-info">
+                <h3>Organic Fruits</h3>
+                <p>Apples, Mangoes, and Citrus.</p>
+                <small><strong>Stock:</strong> 200+ tons available</small>
             </div>
-
-            <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Order</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-
-            <div class="nav-buttons">
-                <button class="btn-primary">Get Started</button>
-            </div>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <h1>AgriMart Farm</h1>
-        <p>
-            Connecting farmers to retailers through a transparent,
-            efficient, and sustainable supply chain.
-        </p>
-        <button class="shop">Explore More</button>
-    </section>
-    <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-    <section class="categories-box">
-        <div class="agri-header">
-            <h1>Available Product Categories</h1>
-            <p>Real-time inventory from local farmers directly to retail hubs.</p>
+            <div class="card-emoji" style="background:#fff8e8;"><img src="assets/images/fruitandveg.jpg" alt=""></div>
         </div>
 
-        <img src="assets/images/sideimg.avif" alt="sideimg" class="sideimg deco-top">
-        <img src="assets/images/villagefamer.avif" alt="Sidebottomimg" class="sideimg Sidebottomimg">
-
-        <div class="products-grid">
-            <div class="product-card">
-                <img src="assets/images/Fruits.jpg" alt="Fruits">
-                <div class="product-info">
-                    <h3>Organic Fruits</h3>
-                    <p>Apples, Mangoes, and Citrus.</p>
-                    <small><strong>Stock:</strong> 200+ tons available</small>
-                </div>
+        <div class="product-card anim anim-2">
+            <div class="product-info">
+                <h3>Fresh Vegetables</h3>
+                <p>Spinach, Cabbage, and more.</p>
+                <small><strong>Market Price:</strong> Updated Daily</small>
             </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Fresh Vegetables</h3>
-                    <p>Spinach, Cabbage, and more.</p>
-                    <small><strong>Market Price:</strong> Updated Daily</small>
-                </div>
-                <img src="assets/images/vegetables.avif" alt="Vegetables">
-            </div>
-
-            <div class="product-card highlight">
-                <div class="product-info">
-                    <h3>Premium Wheat</h3>
-                    <p>Sharbati and Lokwan varieties.</p>
-                    <small><strong>Source:</strong> MP & Punjab Farms</small>
-                </div>
-                <img src="assets/images/Wheat.jpg" alt="Wheat">
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Basmati Rice</h3>
-                    <p>Aged long-grain aromatic rice.</p>
-                    <small><strong>Quality:</strong> Grade A Export</small>
-                </div>
-                <img src="assets/images/FarmerRice.webp" alt="Rice">
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Root Crops</h3>
-                    <p>Potatoes, Onions, and Garlic.</p>
-                    <small><strong>Cold Storage:</strong> Available</small>
-                </div>
-                <img src="assets/images/Root Crops.jpg" alt="Root Vegetables">
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Other Grains</h3>
-                    <p>Bajra, Jowar, and Pulses.</p>
-                    <small><strong>Direct:</strong> Farmer to Retailer</small>
-                </div>
-                <img src="assets/images/Other Grains.webp" alt="Grains">
-            </div>
+            <div class="card-emoji" style="background:#f0fff4;"><img src="assets/images/vegetables.avif" alt=""></div>
         </div>
-    </section>
 
-    <section class="about-feature">
-        <img src="farmer-isolated.png" class="farmer-img" alt="Farmer">
+        <div class="product-card anim anim-3">
+            <div class="product-info">
+                <h3>Premium Wheat</h3>
+                <p>Sharbati and Lokwan varieties.</p>
+                <small><strong>Source:</strong> MP &amp; Punjab Farms</small>
+            </div>
+            <div class="card-emoji" style="background:#fffbea;"><img src="assets/images/Wheat.jpg" alt=""></div>
+        </div>
 
-        <div class="content-area">
-            <h2>Agricul Farm Organic Products for Healthy Living.</h2>
-            <p style="color: #666; margin-bottom: 30px;">
-                Direct connection between farmers and retailers ensures the
-                highest organic standards.
+        <div class="product-card anim anim-1">
+            <div class="product-info">
+                <h3>Basmati Rice</h3>
+                <p>Aged long-grain aromatic rice.</p>
+                <small><strong>Quality:</strong> Grade A Export</small>
+            </div>
+            <div class="card-emoji" style="background:#f8f8f0;"><img src="assets/images/FarmerRice.webp" alt=""></div>
+        </div>
+
+        <div class="product-card anim anim-2">
+            <div class="product-info">
+                <h3>Root Crops</h3>
+                <p>Potatoes, Onions, and Garlic.</p>
+                <small><strong>Cold Storage:</strong> Available</small>
+            </div>
+            <div class="card-emoji" style="background:#fff5f0;"><img src="assets/images/Root Crops.jpg" alt=""></div>
+        </div>
+
+        <div class="product-card anim anim-3">
+            <div class="product-info">
+                <h3>Other Grains</h3>
+                <p>Bajra, Jowar, and Pulses.</p>
+                <small><strong>Direct:</strong> Farmer to Retailer</small>
+            </div>
+            <div class="card-emoji" style="background:#f8f4ec;"><img src="assets/images/Other Grains.webp" alt=""></div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<!-- FIX 3: .about-Intro → .about-inner (typo + wrong class name, now has grid layout) -->
+<section class="about-section" id="about">
+    <div class="about-inner">
+
+        <div class="about-visual anim">
+            <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=800&q=80" alt="Farmer in field">
+        </div>
+
+        <div class="about-text anim anim-2">
+            <span class="section-tag">Why Choose Us</span>
+            <h2 class="section-title">
+                Fresh, Honest Food<br>for Everyday Living
+            </h2>
+            <p style="color:var(--text-light); margin-bottom:10px;">
+                We connect local farmers directly with retailers, so you get fresher produce, better prices, and complete trust in what you sell.
             </p>
-
-            <div class="feature-item">
-                <div class="feature-icon">🛡️</div>
-                <div class="feature-text">
-                    <h4>Certified Organic Standards</h4>
-                    <p style="font-size: 0.9rem; color: #888;">
-                        We verify every farm to ensure no harmful chemicals are
-                        used in the supply chain.
-                    </p>
-                </div>
-            </div>
-
-            <div class="feature-item">
-                <div class="feature-icon">💰</div>
-                <div class="feature-text">
-                    <h4>Fair Prices For You</h4>
-                    <p style="font-size: 0.9rem; color: #888;">
-                        By removing middlemen, farmers earn more from retailers
-                        and both can have profit.
-                    </p>
-                </div>
-            </div>
-
-            <button class="about-btn">About Us</button>
-        </div>
-        <img src="wheat-sacks.png" class="grain-img" alt="Wheat Sacks">
-    </section>
-    <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-    <section class="categories-box2">
-        <div class="AgriMart-header">
-            <h1>AgriMart Farm organic Product's</h1>
-            <p>Conveniently customize productives into everged interfaces without globally</p>
-        </div>
-
-        <div class="filter-menu">
-            <button class=" filter-btn active">See All</button>
-            <button class=" filter-btn">Fruits</button>
-            <button class=" filter-btn">Wheat</button>
-            <button class=" filter-btn">Vegetable</button>
-            <button class="filter-btn">Basmati Rice</button>
-            <button class=" filter-btn">Other Grains</button>
-        </div>
-        <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-        <div class="products-grid">
-
-            <div class="product-card fruit-category">
-                <img src="assets/images/orange.jpg" alt="Oranges">
-                <div class="product-info">
-                    <h3>Nagpur Oranges</h3>
-                    <p>High Vitamin C, juicy citrus.</p>
-                    <small><strong>Type:</strong> Citrus Fruit</small>
-                </div>
-            </div>
-
-            <div class="product-card fruit-category">
-                <img src="assets/images/mangoes.jpeg" alt="Mangoes">
-                <div class="product-info">
-                    <h3>Alphonso Mangoes</h3>
-                    <p>Premium export quality, sweet aroma.</p>
-                    <small><strong>Type:</strong> Tropical Fruit</small>
-                </div>
-            </div>
-
-            <div class="product-card veg-category">
-                <img src="assets/images/spinach.webp" alt="Spinach">
-                <div class="product-info">
-                    <h3>Organic Spinach</h3>
-                    <p>Freshly picked, pesticide-free.</p>
-                    <small><strong>Type:</strong> Leafy Green</small>
-                </div>
-            </div>
-
-            <div class="product-card veg-category">
-                <img src="assets/images/carrots.webp" alt="Carrots">
-                <div class="product-info">
-                    <h3>Red Carrots</h3>
-                    <p>Crispy and vitamin-rich.</p>
-                    <small><strong>Type:</strong> Root Vegetable</small>
-                </div>
-            </div>
-
-            <div class="product-card veg-category">
-                <img src="assets/images/broccoli.webp" alt="Broccoli">
-                <div class="product-info">
-                    <h3>Green Broccoli</h3>
-                    <p>High fiber, farm-chilled delivery.</p>
-                    <small><strong>Type:</strong> Cruciferous</small>
-                </div>
-            </div>
-
-            <div class="product-card fruit-category">
-                <img src="assets/images/strawberries.jpg" alt="Strawberries">
-                <div class="product-info">
-                    <h3>Fresh Strawberries</h3>
-                    <p>Seasonal Mahabaleshwar special.</p>
-                    <small><strong>Type:</strong> Berry</small>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <!--//////////////////////////////////////////////-->
-
-    <section class="intro-section">
-        <div class="intro-content">
-            <span class="badge">Digital Supply Chain</span>
-            <h2>Cultivating a Smarter <br>Agricultural Future</h2>
-            <p>We bridge the gap between local farmers and the global marketplace, leveraging technology to ensure fair pricing, reduced waste, and premium quality produce.</p>
-            <a href="#" class="btn-better">Explore Our Network</a>
-        </div>
-    </section>
-
-    <section class="team-section">
-        <div class="section-title">
-            <h3>Our Expert Team</h3>
-            <p>A dedicated group of professionals committed to revolutionizing the farm-to-table journey.</p>
-        </div>
-
-        <div class="team-grid">
-            <div class="team-card">
-                <div class="member-img">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200&h=200" alt="Jeson Roy">
-                </div>
-                <h4>Jeson Roy</h4>
-                <p>Operations Manager</p>
-                <div class="social-links">
-                    <a href="#">Twitter</a>
-                    <a href="#">LinkedIn</a>
-                </div>
-            </div>
-
-            <div class="team-card highlight-border">
-                <div class="member-img">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200&h=200" alt="Sahjahan Sagor">
-                </div>
-                <h4 class="highlight-name">Sahjahan Sagor</h4>
-                <p>Founder & CEO</p>
-                <div class="social-links">
-                    <a href="#">Twitter</a>
-                    <a href="#">LinkedIn</a>
-                </div>
-            </div>
-
-            <div class="team-card">
-                <div class="member-img">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200" alt="Alisha Kabir">
-                </div>
-                <h4>Alisha Kabir</h4>
-                <p>Strategic Marketer</p>
-                <div class="social-links">
-                    <a href="#">Twitter</a>
-                    <a href="#">LinkedIn</a>
-                </div>
-            </div>
-
-            <div class="team-card">
-                <div class="member-img">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200&h=200" alt="Jeson Smith">
-                </div>
-                <h4>Jeson Smith</h4>
-                <p>Head of Farming</p>
-                <div class="social-links">
-                    <a href="#">Twitter</a>
-                    <a href="#">LinkedIn</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!--///////////////////////////////////////////-->
-
-    <section class="testimonials">
-        <div class="center-text">
-            <span class="sub-title">Testimonials</span>
-            <h2 class="main-title">What Clients Say About Us</h2>
-        </div>
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <div class="user-info">
-                    <img src="https://i.pravatar.cc/150?u=1" alt="Jeson Smith">
-                    <div class="user-meta">
-                        <h4>Jeson Smith</h4>
-                        <div class="stars">★★★★★</div>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-text">
+                        <h4>Trusted Organic Practices</h4>
+                        <p>We work closely with farmers to ensure safe, natural growing methods without harmful chemicals.</p>
                     </div>
                 </div>
-                <p class="quote">"The quality of the organic vegetables is unmatched. The delivery is always on time, and the packaging is eco-friendly."</p>
-            </div>
-            <div class="testimonial-card">
-                <div class="user-info">
-                    <img src="https://i.pravatar.cc/150?u=2" alt="Sahjahan Sagor">
-                    <div class="user-meta">
-                        <h4>Sahjahan Sagor</h4>
-                        <div class="stars">★★★★★</div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-text">
+                        <h4>Fair Pricing for All</h4>
+                        <p>Farmers earn what they deserve, and retailers get better value — no unnecessary middle cuts.</p>
                     </div>
                 </div>
-                <p class="quote">"Finally, a platform that connects us directly with farmers. It's transparent and the produce is incredibly fresh."</p>
-            </div>
-            <div class="testimonial-card">
-                <div class="user-info">
-                    <img src="https://i.pravatar.cc/150?u=3" alt="Alisha Kabir">
-                    <div class="user-meta">
-                        <h4>Alisha Kabir</h4>
-                        <div class="stars">★★★★★</div>
+                <div class="feature-item">
+                    <div class="feature-icon">🚚</div>
+                    <div class="feature-text">
+                        <h4>Freshness You Can Trust</h4>
+                        <p>Smart delivery systems keep produce fresh from the farm right to your store shelves.</p>
                     </div>
                 </div>
-                <p class="quote">"I love their honey and dairy products. You can truly taste the difference in natural, farm-fresh items."</p>
             </div>
+            <button class="btn-green">Learn More →</button>
         </div>
-    </section>
 
-    <section class="blog">
-        <div class="center-text">
-            <span class="sub-title">Our Blog</span>
-            <h2 class="main-title">Agricul Farm Recent News</h2>
+    </div>
+</section>
+
+<!-- ===== SHOP / FILTER All Product were in website that some product are in shown in landing page so that the retaler can check where good product are produce or not   ===== -->
+
+<section class="shop-section">
+    <div class="shop-head">
+        <span class="section-tag">Our Products</span>
+        <h2 class="section-title">AgriMart Organic Products</h2>
+        <p class="section-sub">Browse fresh produce sourced directly from verified farms across India.</p>
+    </div>
+    <div class="filter-menu">
+        <button class="filter-btn active" data-filter="all">See All</button>
+        <button class="filter-btn" data-filter="fruit">Fruits</button>
+        <button class="filter-btn" data-filter="wheat">Wheat</button>
+        <button class="filter-btn" data-filter="veg">Vegetables</button>
+        <button class="filter-btn" data-filter="rice">Basmati Rice</button>
+        <button class="filter-btn" data-filter="grain">Other Grains</button>
+    </div>
+    <div class="products-grid">
+
+        <div class="product-card" data-category="fruit">
+            <img src="assets/images/orange.jpg" alt="Oranges">
+            <div class="product-info">
+                <h3>Nagpur Oranges</h3>
+                <p>High Vitamin C, juicy citrus.</p>
+                <small><strong>Type:</strong> Citrus Fruit</small>
+            </div>
         </div>
-        <div class="blog-grid">
-            <div class="blog-card">
+
+        <div class="product-card" data-category="fruit">
+            <img src="assets/images/mangoes.jpeg" alt="Mangoes">
+            <div class="product-info">
+                <h3>Alphonso Mangoes</h3>
+                <p>Premium export quality, sweet aroma.</p>
+                <small><strong>Type:</strong> Tropical Fruit</small>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="veg">
+            <img src="assets/images/spinach.webp" alt="Spinach">
+            <div class="product-info">
+                <h3>Organic Spinach</h3>
+                <p>Freshly picked, pesticide-free.</p>
+                <small><strong>Type:</strong> Leafy Green</small>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="veg">
+            <img src="assets/images/carrots.webp" alt="Carrots">
+            <div class="product-info">
+                <h3>Red Carrots</h3>
+                <p>Crispy and vitamin-rich.</p>
+                <small><strong>Type:</strong> Root Vegetable</small>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="veg">
+            <img src="assets/images/broccoli.webp" alt="Broccoli">
+            <div class="product-info">
+                <h3>Green Broccoli</h3>
+                <p>High fiber, farm-chilled delivery.</p>
+                <small><strong>Type:</strong> Cruciferous</small>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="fruit">
+            <img src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=400&q=80" alt="Strawberries">
+            <div class="product-info">
+                <h3>Fresh Strawberries</h3>
+                <p>Seasonal Mahabaleshwar special.</p>
+                <small><strong>Type:</strong> Berry</small>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="wheat">
+            <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=400&q=80" alt="Wheat">
+            <div class="product-info">
+                <h3>Sharbati Wheat</h3>
+                <p>Premium MP wheat, golden grain.</p>
+                <small><strong>Type:</strong> Premium Wheat</small>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="rice">
+            <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" alt="Basmati Rice">
+            <div class="product-info">
+                <h3>Basmati Rice</h3>
+                <p>Aged long-grain, aromatic variety.</p>
+                <small><strong>Type:</strong> Grade A Export</small>
+            </div>
+        </div>
+
+        <div class="product-card" data-category="grain">
+            <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&w=400&q=80" alt="Pulses">
+            <div class="product-info">
+                <h3>Mixed Pulses</h3>
+                <p>Bajra, Jowar, and Dal varieties.</p>
+                <small><strong>Type:</strong> Other Grains</small>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== CTA / INTRO ===== -->
+<section class="intro-section">
+    <div class="intro-content anim">
+        <span class="intro-tag">Digital Supply Chain</span>
+        <h2>Cultivating a Smarter<br><span>Agricultural Future</span></h2>
+        <p>We bridge the gap between local farmers and the global marketplace, leveraging technology to ensure fair pricing, reduced waste, and premium quality produce.</p>
+        <a href="#" class="btn-golden">Explore Our Network →</a>
+    </div>
+</section>
+
+<!-- ===== TEAM ===== -->
+<section class="team-section" id="team">
+    <div class="team-head anim">
+        <span class="section-tag">Meet The People</span>
+        <h2 class="section-title">Our Expert Team</h2>
+        <p class="section-sub">A dedicated group of professionals committed to revolutionizing the farm-to-table journey.</p>
+    </div>
+    <div class="team-grid">
+        <div class="team-card anim anim-1">
+            <div class="member-img">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200&h=200" alt="Jeson Roy">
+            </div>
+            <h4>Jeson Roy</h4>
+            <div class="role">Operations Manager</div>
+            <div class="social-links">
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="team-card featured anim anim-2">
+            <div class="member-img">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200&h=200" alt="Sahjahan Sagor">
+            </div>
+            <h4>Sahjahan Sagor</h4>
+            <div class="role">Founder &amp; CEO</div>
+            <div class="social-links">
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="team-card anim anim-3">
+            <div class="member-img">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200" alt="Alisha Kabir">
+            </div>
+            <h4>Alisha Kabir</h4>
+            <div class="role">Strategic Marketer</div>
+            <div class="social-links">
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="team-card anim anim-4">
+            <div class="member-img">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200&h=200" alt="Jeson Smith">
+            </div>
+            <h4>Jeson Smith</h4>
+            <div class="role">Head of Farming</div>
+            <div class="social-links">
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials-section">
+    <div class="test-head anim">
+        <span class="section-tag">Testimonials</span>
+        <h2 class="section-title">What Clients Say About Us</h2>
+    </div>
+    <div class="testimonial-grid">
+        <div class="testimonial-card anim anim-1">
+            <span class="quote-mark">"</span>
+            <p class="quote">The quality of the organic vegetables is unmatched. The delivery is always on time, and the packaging is eco-friendly.</p>
+            <div class="test-top" style="margin-top:20px;margin-bottom:0;">
+                <img src="https://i.pravatar.cc/150?u=1" alt="Jeson Smith">
+                <div class="test-meta">
+                    <h4>Jeson Smith</h4>
+                    <div class="stars">★★★★★</div>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card anim anim-2">
+            <span class="quote-mark">"</span>
+            <p class="quote">Finally, a platform that connects us directly with farmers. It's transparent and the produce is incredibly fresh.</p>
+            <div class="test-top" style="margin-top:20px;margin-bottom:0;">
+                <img src="https://i.pravatar.cc/150?u=2" alt="Sahjahan Sagor">
+                <div class="test-meta">
+                    <h4>Sahjahan Sagor</h4>
+                    <div class="stars">★★★★★</div>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card anim anim-3">
+            <span class="quote-mark">"</span>
+            <p class="quote">I love their honey and dairy products. You can truly taste the difference in natural, farm-fresh items.</p>
+            <div class="test-top" style="margin-top:20px;margin-bottom:0;">
+                <img src="https://i.pravatar.cc/150?u=3" alt="Alisha Kabir">
+                <div class="test-meta">
+                    <h4>Alisha Kabir</h4>
+                    <div class="stars">★★★★★</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== BLOG ===== -->
+<section class="blog-section">
+    <div class="blog-head anim">
+        <span class="section-tag">Our Blog</span>
+        <h2 class="section-title">AgriMart Recent News</h2>
+    </div>
+    <div class="blog-grid">
+        <div class="blog-card anim anim-1">
+            <div class="blog-card-img-wrap">
                 <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80" class="blog-img" alt="Blog 1">
-                <div class="blog-content">
-                    <span class="blog-date">24 Aug 2026</span>
-                    <h4>Tips For Ripening Your Fruits & Vegetables</h4>
-                    <a href="#" class="read-more">Read More</a>
-                </div>
             </div>
-            <div class="blog-card">
-                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80" class="blog-img" alt="Blog 2">
-                <div class="blog-content">
-                    <span class="blog-date">18 Aug 2026</span>
-                    <h4>Benefits of Raw Food for Your Health</h4>
-                    <a href="#" class="read-more">Read More</a>
-                </div>
-            </div>
-            <div class="blog-card">
-                <img src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=400&q=80" class="blog-img" alt="Blog 3">
-                <div class="blog-content">
-                    <span class="blog-date">12 Aug 2026</span>
-                    <h4>Superfoods You Should be Eating Today</h4>
-                    <a href="#" class="read-more">Read More</a>
-                </div>
+            <div class="blog-body">
+                <span class="blog-date">24 Aug 2026</span>
+                <h4>Tips For Ripening Your Fruits &amp; Vegetables</h4>
+                <a href="#" class="read-more">Read More →</a>
             </div>
         </div>
-    </section>
-
-    <div class="partners">
-        <img src="#" alt="Brand 1">
-        <img src="#" alt="Brand 2">
-        <img src="#" alt="Brand 3">
-        <img src="#" alt="Brand 4">
+        <div class="blog-card anim anim-2">
+            <div class="blog-card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80" class="blog-img" alt="Blog 2">
+            </div>
+            <div class="blog-body">
+                <span class="blog-date">18 Aug 2026</span>
+                <h4>Benefits of Raw Food for Your Health</h4>
+                <a href="#" class="read-more">Read More →</a>
+            </div>
+        </div>
+        <div class="blog-card anim anim-3">
+            <div class="blog-card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=400&q=80" class="blog-img" alt="Blog 3">
+            </div>
+            <div class="blog-body">
+                <span class="blog-date">12 Aug 2026</span>
+                <h4>Superfoods You Should be Eating Today</h4>
+                <a href="#" class="read-more">Read More →</a>
+            </div>
+        </div>
     </div>
+</section>
 
-    <div class="newsletter">
-        <h3>Subscribe Our Newsletter</h3>
-        <form>
-            <input type="email" placeholder="Enter your email...">
-            <button type="submit">Subscribe</button>
-        </form>
+<!-- ===== NEWSLETTER ===== -->
+<div class="newsletter" id="contact">
+    <div class="newsletter-text">
+        <h3>Stay in the Loop 🌾</h3>
+        <p>Get daily price updates, harvest news and exclusive offers.</p>
     </div>
+    <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+        <input type="email" placeholder="Enter your email address..." required>
+        <button type="submit">Subscribe</button>
+    </form>
+</div>
 
-    <footer>
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="footer-inner">
         <div class="footer-grid">
             <div class="footer-col">
-                <h4>Agricul Farm</h4>
+                <div class="footer-logo">Agri<span>Mart</span> 🌾</div>
                 <p>Leading the way in digital agricultural supply chains. We provide fresh, organic produce straight from the heart of the farm to your table.</p>
                 <p>📍 Sector #48, Mumbai, India</p>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="#about">About Us</a></li>
                     <li><a href="#">Our Services</a></li>
-                    <li><a href="#">Farming Shop</a></li>
+                    <li><a href="#categories">Farming Shop</a></li>
                     <li><a href="#">Latest News</a></li>
                 </ul>
             </div>
@@ -428,21 +448,99 @@
             <div class="footer-col">
                 <h4>Instagram Feed</h4>
                 <div class="insta-grid">
-                    <img src="https://picsum.photos/100?random=1" alt="Feed 1">
-                    <img src="https://picsum.photos/100?random=2" alt="Feed 2">
-                    <img src="https://picsum.photos/100?random=3" alt="Feed 3">
-                    <img src="https://picsum.photos/100?random=4" alt="Feed 4">
-                    <img src="https://picsum.photos/100?random=5" alt="Feed 5">
-                    <img src="https://picsum.photos/100?random=6" alt="Feed 6">
+                    <img src="https://picsum.photos/100?random=11" alt="Feed 1">
+                    <img src="https://picsum.photos/100?random=22" alt="Feed 2">
+                    <img src="https://picsum.photos/100?random=33" alt="Feed 3">
+                    <img src="https://picsum.photos/100?random=44" alt="Feed 4">
+                    <img src="https://picsum.photos/100?random=55" alt="Feed 5">
+                    <img src="https://picsum.photos/100?random=66" alt="Feed 6">
                 </div>
             </div>
         </div>
-        <div class="copyright">
-            &copy; 2026 Agricul Farm. All Rights Reserved. Designed for Professional Excellence.
+        <div class="footer-bottom">
+            &copy; 2026 AgriMart. All Rights Reserved. Built for Professional Excellence.
         </div>
-    </footer>
+    </div>
+</footer>
 
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
+<script>
+    /* ===== HAMBURGER MENU ===== */
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            navLinks.classList.remove('open');
+        });
+    });
+
+    /* ===== FILTER BUTTONS ===== */
+    /* FIX: was targeting .shop-card — now correctly targets .product-card with data-category */
+    const filterBtns  = document.querySelectorAll('.filter-btn');
+    const shopSection = document.querySelector('.shop-section');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.dataset.filter;
+            shopSection.querySelectorAll('.product-card[data-category]').forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.classList.remove('hidden');
+                    card.style.animation = 'none';
+                    card.offsetHeight;
+                    card.style.animation = 'fadeUp 0.4s ease both';
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    /* ===== BACK TO TOP ===== */
+    const backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        backBtn.classList.toggle('visible', window.scrollY > 400);
+    });
+    backBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ===== NEWSLETTER ===== */
+    function handleNewsletter(e) {
+        e.preventDefault();
+        const input = e.target.querySelector('input');
+        const btn   = e.target.querySelector('button');
+        btn.textContent = '✓ Subscribed!';
+        btn.style.background = '#1c4a40';
+        input.value = '';
+        setTimeout(() => { btn.textContent = 'Subscribe'; btn.style.background = ''; }, 3000);
+    }
+
+    /* ===== SCROLL ANIMATION ===== */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.anim').forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+    });
+</script>
 </body>
-
 </html>
