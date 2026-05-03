@@ -1,0 +1,150 @@
+<!-- Dashboard Page Content -->
+<div class="page active" id="page-dashboard">
+  <div class="page-header">
+    <div>
+      <h1>Dashboard</h1>
+      <ul class="breadcrumb">
+        <li><a href="#">AgriMart</a></li>
+        <li><i class='bx bx-chevron-right'></i></li>
+        <li><a class="active" href="#">Overview</a></li>
+      </ul>
+    </div>
+    <button class="btn-primary btn-gold">
+      <i class='bx bxs-cloud-download'></i> Download Report
+    </button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon green"><i class='bx bxs-package'></i></div>
+      <div>
+        <div class="stat-val">1,024</div>
+        <div class="stat-label">Total Orders</div>
+        <div class="stat-delta up">▲ 12% this month</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon gold"><i class='bx bxs-dollar-circle'></i></div>
+      <div>
+        <div class="stat-val">₹2,54,800</div>
+        <div class="stat-label">Total Revenue</div>
+        <div class="stat-delta up">▲ 8.3% this month</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon blue"><i class='bx bxs-group'></i></div>
+      <div>
+        <div class="stat-val">2,834</div>
+        <div class="stat-label">Visitors</div>
+        <div class="stat-delta up">▲ 5% this week</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon red"><i class='bx bxs-leaf'></i></div>
+      <div>
+        <div class="stat-val">48</div>
+        <div class="stat-label">Products Listed</div>
+        <div class="stat-delta down">▼ 2 out of stock</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:20px;">
+    <div class="card">
+      <div class="card-head">
+        <h3>Recent Orders</h3>
+        <div class="actions">
+          <i class='bx bx-search'></i>
+          <i class='bx bx-filter'></i>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Customer</th><th>Product</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="user-cell"><div class="avatar-placeholder">A</div>Amit Shah</div></td>
+              <td>Wheat (50kg)</td><td>26 Apr 2026</td><td>₹3,200</td>
+              <td><span class="badge-status badge-completed">Completed</span></td>
+            </tr>
+            <tr>
+              <td><div class="user-cell"><div class="avatar-placeholder">P</div>Priya Mehta</div></td>
+              <td>Tomatoes (10kg)</td><td>25 Apr 2026</td><td>₹640</td>
+              <td><span class="badge-status badge-pending">Pending</span></td>
+            </tr>
+            <tr>
+              <td><div class="user-cell"><div class="avatar-placeholder">S</div>Suresh Kumar</div></td>
+              <td>Rice (25kg)</td><td>24 Apr 2026</td><td>₹1,875</td>
+              <td><span class="badge-status badge-process">Processing</span></td>
+            </tr>
+            <tr>
+              <td><div class="user-cell"><div class="avatar-placeholder">N</div>Neha Sharma</div></td>
+              <td>Potatoes (20kg)</td><td>23 Apr 2026</td><td>₹800</td>
+              <td><span class="badge-status badge-completed">Completed</span></td>
+            </tr>
+            <tr>
+              <td><div class="user-cell"><div class="avatar-placeholder">R</div>Raj Singh</div></td>
+              <td>Onions (15kg)</td><td>22 Apr 2026</td><td>₹600</td>
+              <td><span class="badge-status badge-cancelled">Cancelled</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Today's Tasks</h3>
+        <div class="actions">
+          <i class='bx bx-plus' id="addTodoBtn"></i>
+          <i class='bx bx-filter'></i>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="todo-list" id="todoList">
+          <div class="todo-item done">
+            <input type="checkbox" class="todo-cb" checked>
+            <span class="todo-text">Pack wheat orders for dispatch</span>
+            <i class='bx bx-dots-vertical-rounded todo-more'></i>
+          </div>
+          <div class="todo-item pending-t">
+            <input type="checkbox" class="todo-cb">
+            <span class="todo-text">Upload new product photos</span>
+            <i class='bx bx-dots-vertical-rounded todo-more'></i>
+          </div>
+          <div class="todo-item done">
+            <input type="checkbox" class="todo-cb" checked>
+            <span class="todo-text">Call courier for pickup</span>
+            <i class='bx bx-dots-vertical-rounded todo-more'></i>
+          </div>
+          <div class="todo-item pending-t">
+            <input type="checkbox" class="todo-cb">
+            <span class="todo-text">Update price for tomatoes</span>
+            <i class='bx bx-dots-vertical-rounded todo-more'></i>
+          </div>
+          <div class="todo-item pending-t">
+            <input type="checkbox" class="todo-cb">
+            <span class="todo-text">Review retailer feedback</span>
+            <i class='bx bx-dots-vertical-rounded todo-more'></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly Revenue Chart -->
+  <div class="card">
+    <div class="card-head"><h3>Weekly Revenue (₹)</h3></div>
+    <div class="card-body">
+      <div class="chart-bars" id="revenueChart">
+        <div class="bar-col"><div class="bar" style="height:60%" data-val="₹18k"></div><span class="bar-label">Mon</span></div>
+        <div class="bar-col"><div class="bar gold" style="height:85%" data-val="₹25k"></div><span class="bar-label">Tue</span></div>
+        <div class="bar-col"><div class="bar" style="height:50%" data-val="₹15k"></div><span class="bar-label">Wed</span></div>
+        <div class="bar-col"><div class="bar" style="height:95%" data-val="₹29k"></div><span class="bar-label">Thu</span></div>
+        <div class="bar-col"><div class="bar gold" style="height:75%" data-val="₹22k"></div><span class="bar-label">Fri</span></div>
+        <div class="bar-col"><div class="bar" style="height:65%" data-val="₹19k"></div><span class="bar-label">Sat</span></div>
+        <div class="bar-col"><div class="bar" style="height:40%" data-val="₹12k"></div><span class="bar-label">Sun</span></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,176 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agri Login</title>
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register | AgriMart India</title>
+    <style>
+        :root {
+            --primary: #e6a73a;
+            --primary-dark: #c98e2b;
+            --bg-overlay: rgba(0, 0, 0, 0.5); /* Added missing variable */
+            --text-dark: #333;
+            --text-muted: #666;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+
+        body {
+            /* Updated background logic to ensure it displays correctly */
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
+                        url('assets/images/backimag.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: var(--white);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-area h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            letter-spacing: -1px;
+        }
+
+        .logo-area p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #999;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .form-container { display: none; text-align: left; }
+        .form-container.active { 
+            display: block; 
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .input-group { margin-bottom: 18px; }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus { 
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(230, 167, 58, 0.1);
+        }
+
+        .role-wrapper {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .role-option {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .role-option.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .submit-btn:hover { 
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .footer-links {
+            margin-top: 25px;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-links a:hover { text-decoration: underline; }
+
+        @media (max-width: 480px) {
+            .auth-card { padding: 30px 20px; }
+        }
+    </style>
 </head>
 <body>
-    <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: sans-serif;
-}
 
-body {
-  background: #f8f6ef;
-}
+    <div class="auth-card">
+        <div class="logo-area">
+            <h1>AgriMart</h1>
+            <p>India's Digital Supply Chain Hub</p>
+        </div>
 
-.container {
-  display: flex;
-  min-height: 100vh;
-}
+        <div class="auth-tabs">
+            <button class="tab-btn active" id="loginTab" onclick="switchAuth('login')">Login</button>
+            <button class="tab-btn" id="regTab" onclick="switchAuth('register')">Register</button>
+        </div>
 
-/* LEFT */
-.left {
-  flex: 1;
-  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-              url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
-  background-size: cover;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 40px;
-}
+        <div id="loginSection" class="form-container active">
+            <form action="/login" method="POST">
+                <div class="input-group">
+                    <label>Username or Email</label>
+                    <input type="text" placeholder="Enter your username" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="submit-btn">LOGIN</button>
+            </form>
+        </div>
 
-.left h1 {
-  font-size: 3rem;
-}
+        <div id="regSection" class="form-container">
+            <form action="/register" method="POST">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="e.g. Rahul Sharma" required>
+                </div>
 
-.left p {
-  margin-top: 10px;
-}
+                <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 8px;">I am a:</label>
+                <div class="role-wrapper">
+                    <div class="role-option active" id="optFarmer" onclick="setRole('farmer')">Farmer</div>
+                    <div class="role-option" id="optRetailer" onclick="setRole('retailer')">Retailer</div>
+                </div>
+                <input type="hidden" name="role" id="userRole" value="farmer">
 
-/* RIGHT */
-.right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 40px;
-  background: #fff;
-}
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" placeholder="Choose a username" required>
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="name@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="submit-btn">CREATE ACCOUNT</button>
+            </form>
+        </div>
 
-/* TOGGLE */
-.toggle-box {
-  display: flex;
-  margin-bottom: 20px;
-}
-
-.toggle-box button {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  background: #eee;
-  cursor: pointer;
-}
-
-.toggle-box .active {
-  background: #f4a825;
-  color: white;
-}
-
-/* FORMS */
-.form {
-  display: none;
-  flex-direction: column;
-}
-
-.form.active {
-  display: flex;
-}
-
-.form input {
-  margin: 10px 0;
-  padding: 12px;
-  border: 1px solid #ccc;
-}
-
-.form button {
-  padding: 12px;
-  background: #f4a825;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-
-  .left {
-    height: 200px;
-  }
-}
-    </style>
-
-<div class="container">
-
-  <!-- LEFT SIDE -->
-  <div class="left">
-    <h1>AgriMart</h1>
-    <p>Fresh from farmers to your store 🌱</p>
-  </div>
-
-  <!-- RIGHT SIDE -->
-  <div class="right">
-
-    <!-- TOGGLE BUTTON -->
-    <div class="toggle-box">
-      <button id="loginBtn" class="active">Login</button>
-      <button id="registerBtn">Register</button>
+        <div class="footer-links">
+            <p><a href="index.html">← Back to Home</a></p>
+        </div>
     </div>
 
-    <!-- LOGIN FORM -->
-    <form id="loginForm" class="form active">
-      <h2>Login</h2>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
+    <script>
+        function switchAuth(type) {
+            const loginSection = document.getElementById('loginSection');
+            const regSection = document.getElementById('regSection');
+            const loginTab = document.getElementById('loginTab');
+            const regTab = document.getElementById('regTab');
 
-    <!-- REGISTER FORM -->
-    <form id="registerForm" class="form">
-      <h2>Register</h2>
-      <input type="text" placeholder="Full Name" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Register</button>
-    </form>
+            if (type === 'login') {
+                loginSection.classList.add('active');
+                regSection.classList.remove('active');
+                loginTab.classList.add('active');
+                regTab.classList.remove('active');
+            } else {
+                regSection.classList.add('active');
+                loginSection.classList.remove('active');
+                regTab.classList.add('active');
+                loginTab.classList.remove('active');
+            }
+        }
 
-  </div>
-
-</div>
-
-<script>
-    const loginBtn = document.getElementById("loginBtn");
-const registerBtn = document.getElementById("registerBtn");
-
-const loginForm = document.getElementById("loginForm");
-const registerForm = document.getElementById("registerForm");
-
-loginBtn.addEventListener("click", () => {
-  loginForm.classList.add("active");
-  registerForm.classList.remove("active");
-
-  loginBtn.classList.add("active");
-  registerBtn.classList.remove("active");
-});
-
-registerBtn.addEventListener("click", () => {
-  registerForm.classList.add("active");
-  loginForm.classList.remove("active");
-
-  registerBtn.classList.add("active");
-  loginBtn.classList.remove("active");
-});
-</script>
+        function setRole(role) {
+            const fBtn = document.getElementById('optFarmer');
+            const rBtn = document.getElementById('optRetailer');
+            const roleInput = document.getElementById('userRole');
+            
+            if (role === 'farmer') {
+                fBtn.classList.add('active');
+                rBtn.classList.remove('active');
+                roleInput.value = 'farmer';
+            } else {
+                rBtn.classList.add('active');
+                fBtn.classList.remove('active');
+                roleInput.value = 'retailer';
+            }
+        }
+    </script>
 </body>
 </html>

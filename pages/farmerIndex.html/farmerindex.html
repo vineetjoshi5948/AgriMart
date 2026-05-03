@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriMart – Farmer Dashboard</title>
+<link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/farmer.css">
+<link rel="shortcut icon" href="" type="image/x-icon">
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
+<section id="sidebar">
+  <div class="brand">
+    <span class="brand-icon">🌾</span>
+    <span class="brand-text">Agri<span>Mart</span></span>
+  </div>
+
+  <div class="nav-section">Main Menu</div>
+  <ul class="side-menu">
+    <li class="active" data-page="dashboard">
+      <a href="#"><i class='bx bxs-dashboard'></i><span class="text">Dashboard</span></a>
+    </li>
+    <li data-page="mystore">
+      <a href="#"><i class='bx bxs-store'></i><span class="text">My Store</span></a>
+    </li>
+    <li data-page="analytics">
+      <a href="#"><i class='bx bxs-bar-chart-alt-2'></i><span class="text">Analytics</span></a>
+    </li>
+    <li data-page="orders">
+      <a href="#"><i class='bx bxs-package'></i><span class="text">Orders</span></a>
+    </li>
+    <li data-page="messages">
+      <a href="#"><i class='bx bxs-message-dots'></i><span class="text">Messages</span></a>
+    </li>
+    <li data-page="team">
+      <a href="#"><i class='bx bxs-group'></i><span class="text">Team</span></a>
+    </li>
+  </ul>
+
+  <div class="nav-section">Account</div>
+  <ul class="side-menu">
+    <li data-page="profile">
+      <a href="#"><i class='bx bxs-user-circle'></i><span class="text">Profile</span></a>
+    </li>
+    <li data-page="notifications">
+      <a href="#"><i class='bx bxs-bell'></i><span class="text">Notifications</span></a>
+    </li>
+    <li data-page="settings">
+      <a href="#"><i class='bx bxs-cog'></i><span class="text">Settings</span></a>
+    </li>
+  </ul>
+
+  <div class="sidebar-bottom">
+    <a href="/index.html" class="logout"><i class='bx bxs-log-out-circle'></i><span class="text">Logout</span></a>
+  </div>
+</section>
+
+<!-- ══ CONTENT ══════════════════════════════════════════════ -->
+<section id="content">
+
+  <!-- NAVBAR -->
+  <nav id="topnav">
+    <i class='bx bx-menu' id="menuToggle"></i>
+
+    <div class="search-wrap">
+      <i class='bx bx-search'></i>
+      <input type="text" placeholder="Search products, orders…">
+    </div>
+
+    <div class="nav-spacer"></div>
+
+    <div class="nav-actions">
+      <button class="nav-btn" onclick="goTo('notifications')">
+        <i class='bx bxs-bell'></i>
+        <span class="badge">3</span>
+      </button>
+      <button class="nav-btn" onclick="goTo('messages')">
+        <i class='bx bxs-message'></i>
+        <span class="badge">5</span>
+      </button>
+      <div class="dark-toggle" id="darkToggle" title="Dark mode"></div>
+      <div class="nav-profile" onclick="goTo('profile')">
+        <div class="avatar-placeholder" style="width:34px;height:34px;font-size:15px;">R</div>
+        <div>
+          <div class="pname">Rajan Patel</div>
+          <div class="prole">Farmer · Verified ✓</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── PAGE: DASHBOARD ─────────────────────────────────── -->
+  <div class="page active" id="page-dashboard">
+    <div class="page-header">
+      <div>
+        <h1>Dashboard</h1>
+        <ul class="breadcrumb">
+          <li><a href="#">AgriMart</a></li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li><a class="active" href="#">Overview</a></li>
+        </ul>
+      </div>
+      <button class="btn-primary btn-gold">
+        <i class='bx bxs-cloud-download'></i> Download Report
+      </button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon green"><i class='bx bxs-package'></i></div>
+        <div>
+          <div class="stat-val">1,024</div>
+          <div class="stat-label">Total Orders</div>
+          <div class="stat-delta up">▲ 12% this month</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gold"><i class='bx bxs-dollar-circle'></i></div>
+        <div>
+          <div class="stat-val">₹2,54,800</div>
+          <div class="stat-label">Total Revenue</div>
+          <div class="stat-delta up">▲ 8.3% this month</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon blue"><i class='bx bxs-group'></i></div>
+        <div>
+          <div class="stat-val">2,834</div>
+          <div class="stat-label">Visitors</div>
+          <div class="stat-delta up">▲ 5% this week</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon red"><i class='bx bxs-leaf'></i></div>
+        <div>
+          <div class="stat-val">48</div>
+          <div class="stat-label">Products Listed</div>
+          <div class="stat-delta down">▼ 2 out of stock</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card">
+        <div class="card-head">
+          <h3>Recent Orders</h3>
+          <div class="actions">
+            <i class='bx bx-search'></i>
+            <i class='bx bx-filter'></i>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Customer</th><th>Product</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><div class="user-cell"><div class="avatar-placeholder">A</div>Amit Shah</div></td>
+                <td>Wheat (50kg)</td><td>26 Apr 2026</td><td>₹3,200</td>
+                <td><span class="badge-status badge-completed">Completed</span></td>
+              </tr>
+              <tr>
+                <td><div class="user-cell"><div class="avatar-placeholder">P</div>Priya Mehta</div></td>
+                <td>Tomatoes (10kg)</td><td>25 Apr 2026</td><td>₹640</td>
+                <td><span class="badge-status badge-pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td><div class="user-cell"><div class="avatar-placeholder">S</div>Suresh Kumar</div></td>
+                <td>Rice (25kg)</td><td>24 Apr 2026</td><td>₹1,875</td>
+                <td><span class="badge-status badge-process">Processing</span></td>
+              </tr>
+              <tr>
+                <td><div class="user-cell"><div class="avatar-placeholder">N</div>Neha Sharma</div></td>
+                <td>Potatoes (20kg)</td><td>23 Apr 2026</td><td>₹800</td>
+                <td><span class="badge-status badge-completed">Completed</span></td>
+              </tr>
+              <tr>
+                <td><div class="user-cell"><div class="avatar-placeholder">R</div>Raj Singh</div></td>
+                <td>Onions (15kg)</td><td>22 Apr 2026</td><td>₹600</td>
+                <td><span class="badge-status badge-cancelled">Cancelled</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>Today's Tasks</h3>
+          <div class="actions">
+            <i class='bx bx-plus' id="addTodoBtn"></i>
+            <i class='bx bx-filter'></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="todo-list" id="todoList">
+            <div class="todo-item done">
+              <input type="checkbox" class="todo-cb" checked>
+              <span class="todo-text">Pack wheat orders for dispatch</span>
+              <i class='bx bx-dots-vertical-rounded todo-more'></i>
+            </div>
+            <div class="todo-item pending-t">
+              <input type="checkbox" class="todo-cb">
+              <span class="todo-text">Upload new product photos</span>
+              <i class='bx bx-dots-vertical-rounded todo-more'></i>
+            </div>
+            <div class="todo-item done">
+              <input type="checkbox" class="todo-cb" checked>
+              <span class="todo-text">Call courier for pickup</span>
+              <i class='bx bx-dots-vertical-rounded todo-more'></i>
+            </div>
+            <div class="todo-item pending-t">
+              <input type="checkbox" class="todo-cb">
+              <span class="todo-text">Update price for tomatoes</span>
+              <i class='bx bx-dots-vertical-rounded todo-more'></i>
+            </div>
+            <div class="todo-item pending-t">
+              <input type="checkbox" class="todo-cb">
+              <span class="todo-text">Review retailer feedback</span>
+              <i class='bx bx-dots-vertical-rounded todo-more'></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weekly Revenue Chart -->
+    <div class="card">
+      <div class="card-head"><h3>Weekly Revenue (₹)</h3></div>
+      <div class="card-body">
+        <div class="chart-bars" id="revenueChart">
+          <div class="bar-col"><div class="bar" style="height:60%" data-val="₹18k"></div><span class="bar-label">Mon</span></div>
+          <div class="bar-col"><div class="bar gold" style="height:85%" data-val="₹25k"></div><span class="bar-label">Tue</span></div>
+          <div class="bar-col"><div class="bar" style="height:50%" data-val="₹15k"></div><span class="bar-label">Wed</span></div>
+          <div class="bar-col"><div class="bar" style="height:95%" data-val="₹29k"></div><span class="bar-label">Thu</span></div>
+          <div class="bar-col"><div class="bar gold" style="height:75%" data-val="₹22k"></div><span class="bar-label">Fri</span></div>
+          <div class="bar-col"><div class="bar" style="height:65%" data-val="₹19k"></div><span class="bar-label">Sat</span></div>
+          <div class="bar-col"><div class="bar" style="height:40%" data-val="₹12k"></div><span class="bar-label">Sun</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: MY STORE ──────────────────────────────────── -->
+  <div class="page" id="page-mystore">
+    <div class="page-header">
+      <div>
+        <h1>My Store</h1>
+        <ul class="breadcrumb">
+          <li><a href="#">AgriMart</a></li><li><i class='bx bx-chevron-right'></i></li>
+          <li><a class="active" href="#">My Store</a></li>
+        </ul>
+      </div>
+      <button class="btn-primary" onclick="document.getElementById('addProductModal').classList.add('open')">
+        <i class='bx bx-plus'></i> Add Product
+      </button>
+    </div>
+
+    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="stat-card">
+        <div class="stat-icon green"><i class='bx bxs-leaf'></i></div>
+        <div><div class="stat-val">48</div><div class="stat-label">Total Products</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gold"><i class='bx bxs-star'></i></div>
+        <div><div class="stat-val">4.8★</div><div class="stat-label">Store Rating</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon red"><i class='bx bxs-error'></i></div>
+        <div><div class="stat-val">2</div><div class="stat-label">Out of Stock</div></div>
+      </div>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-thumb">🌾</div>
+        <div class="product-info">
+          <div class="product-name">Premium Wheat</div>
+          <div class="product-price">₹64/kg</div>
+          <div class="product-stock">Stock: 500 kg</div>
+          <div class="product-actions">
+            <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+            <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb">🍅</div>
+        <div class="product-info">
+          <div class="product-name">Fresh Tomatoes</div>
+          <div class="product-price">₹64/kg</div>
+          <div class="product-stock">Stock: 120 kg</div>
+          <div class="product-actions">
+            <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+            <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb">🍚</div>
+        <div class="product-info">
+          <div class="product-name">Basmati Rice</div>
+          <div class="product-price">₹75/kg</div>
+          <div class="product-stock">Stock: 800 kg</div>
+          <div class="product-actions">
+            <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+            <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb">🧅</div>
+        <div class="product-info">
+          <div class="product-name">Red Onions</div>
+          <div class="product-price">₹40/kg</div>
+          <div class="product-stock" style="color:var(--red);">Out of Stock</div>
+          <div class="product-actions">
+            <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+            <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb">🥔</div>
+        <div class="product-info">
+          <div class="product-name">Potatoes</div>
+          <div class="product-price">₹35/kg</div>
+          <div class="product-stock">Stock: 300 kg</div>
+          <div class="product-actions">
+            <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+            <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb">🌽</div>
+        <div class="product-info">
+          <div class="product-name">Sweet Corn</div>
+          <div class="product-price">₹28/kg</div>
+          <div class="product-stock">Stock: 250 kg</div>
+          <div class="product-actions">
+            <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+            <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: ANALYTICS ────────────────────────────────── -->
+  <div class="page" id="page-analytics">
+    <div class="page-header">
+      <div>
+        <h1>Analytics</h1>
+        <ul class="breadcrumb">
+          <li><a href="#">AgriMart</a></li><li><i class='bx bx-chevron-right'></i></li>
+          <li><a class="active" href="#">Analytics</a></li>
+        </ul>
+      </div>
+      <button class="btn-primary btn-gold"><i class='bx bxs-cloud-download'></i> Export</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-icon green"><i class='bx bxs-trending-up'></i></div>
+        <div><div class="stat-val">₹8.2L</div><div class="stat-label">Monthly Revenue</div><div class="stat-delta up">▲ 18% vs last month</div></div>
+      </div>
+      <div class="stat-card"><div class="stat-icon gold"><i class='bx bxs-cart'></i></div>
+        <div><div class="stat-val">342</div><div class="stat-label">Orders This Month</div><div class="stat-delta up">▲ 22%</div></div>
+      </div>
+      <div class="stat-card"><div class="stat-icon blue"><i class='bx bxs-user-check'></i></div>
+        <div><div class="stat-val">89%</div><div class="stat-label">Customer Satisfaction</div><div class="stat-delta up">▲ 3%</div></div>
+      </div>
+      <div class="stat-card"><div class="stat-icon red"><i class='bx bxs-x-circle'></i></div>
+        <div><div class="stat-val">4.2%</div><div class="stat-label">Return Rate</div><div class="stat-delta down">▼ 0.8%</div></div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card">
+        <div class="card-head"><h3>Monthly Revenue Trend</h3></div>
+        <div class="card-body">
+          <div class="chart-bars">
+            <div class="bar-col"><div class="bar" style="height:55%" data-val="₹4.2L"></div><span class="bar-label">Nov</span></div>
+            <div class="bar-col"><div class="bar" style="height:42%" data-val="₹3.1L"></div><span class="bar-label">Dec</span></div>
+            <div class="bar-col"><div class="bar gold" style="height:70%" data-val="₹5.6L"></div><span class="bar-label">Jan</span></div>
+            <div class="bar-col"><div class="bar" style="height:60%" data-val="₹4.8L"></div><span class="bar-label">Feb</span></div>
+            <div class="bar-col"><div class="bar" style="height:80%" data-val="₹6.5L"></div><span class="bar-label">Mar</span></div>
+            <div class="bar-col"><div class="bar gold" style="height:100%" data-val="₹8.2L"></div><span class="bar-label">Apr</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Sales by Category</h3></div>
+        <div class="card-body">
+          <div class="donut-wrap">
+            <svg class="donut-svg" width="120" height="120" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border)" stroke-width="18"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--green)" stroke-width="18"
+                stroke-dasharray="188 126" stroke-dashoffset="25" transform="rotate(-90 60 60)"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--gold)" stroke-width="18"
+                stroke-dasharray="75 239" stroke-dashoffset="-163" transform="rotate(-90 60 60)"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#2563EB" stroke-width="18"
+                stroke-dasharray="51 263" stroke-dashoffset="-238" transform="rotate(-90 60 60)"/>
+              <text x="60" y="64" text-anchor="middle" font-size="13" fill="var(--dark)" font-weight="700" font-family="Outfit">Total</text>
+            </svg>
+            <div class="donut-legend">
+              <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>Grains — 60%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:var(--gold)"></span>Vegetables — 24%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#2563EB"></span>Fruits — 16%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Products -->
+    <div class="card">
+      <div class="card-head"><h3>Top Selling Products</h3></div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;">
+              <span>🌾 Wheat</span><span style="color:var(--green);font-weight:700;">₹3.2L</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;">
+              <span>🍚 Basmati Rice</span><span style="color:var(--green);font-weight:700;">₹2.5L</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;">
+              <span>🍅 Tomatoes</span><span style="color:var(--gold);font-weight:700;">₹1.1L</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill gold" style="width:28%"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;">
+              <span>🥔 Potatoes</span><span style="color:var(--gold);font-weight:700;">₹0.9L</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill gold" style="width:22%"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;">
+              <span>🧅 Onions</span><span style="color:var(--red);font-weight:700;">₹0.5L</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill red" style="width:13%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: ORDERS ────────────────────────────────────── -->
+  <div class="page" id="page-orders">
+    <div class="page-header">
+      <div>
+        <h1>Orders</h1>
+        <ul class="breadcrumb">
+          <li><a href="#">AgriMart</a></li><li><i class='bx bx-chevron-right'></i></li>
+          <li><a class="active" href="#">All Orders</a></li>
+        </ul>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <select class="form-control" style="width:auto;padding:8px 14px;">
+          <option>All Status</option>
+          <option>Completed</option>
+          <option>Pending</option>
+          <option>Processing</option>
+          <option>Cancelled</option>
+        </select>
+        <button class="btn-primary btn-gold"><i class='bx bxs-cloud-download'></i> Export</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>All Orders</h3>
+        <div class="actions"><i class='bx bx-search'></i><i class='bx bx-filter'></i></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#Order</th><th>Customer</th><th>Product</th><th>Qty</th><th>Amount</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>#1024</td><td><div class="user-cell"><div class="avatar-placeholder">A</div>Amit Shah</div></td><td>Wheat 50kg</td><td>50kg</td><td>₹3,200</td><td>26 Apr 2026</td><td><span class="badge-status badge-completed">Completed</span></td><td><button class="btn-sm edit" style="flex:none;padding:5px 12px;">View</button></td></tr>
+            <tr><td>#1023</td><td><div class="user-cell"><div class="avatar-placeholder">P</div>Priya Mehta</div></td><td>Tomatoes 10kg</td><td>10kg</td><td>₹640</td><td>25 Apr 2026</td><td><span class="badge-status badge-pending">Pending</span></td><td><button class="btn-sm edit" style="flex:none;padding:5px 12px;">View</button></td></tr>
+            <tr><td>#1022</td><td><div class="user-cell"><div class="avatar-placeholder">S</div>Suresh Kumar</div></td><td>Rice 25kg</td><td>25kg</td><td>₹1,875</td><td>24 Apr 2026</td><td><span class="badge-status badge-process">Processing</span></td><td><button class="btn-sm edit" style="flex:none;padding:5px 12px;">View</button></td></tr>
+            <tr><td>#1021</td><td><div class="user-cell"><div class="avatar-placeholder">N</div>Neha Sharma</div></td><td>Potatoes 20kg</td><td>20kg</td><td>₹800</td><td>23 Apr 2026</td><td><span class="badge-status badge-completed">Completed</span></td><td><button class="btn-sm edit" style="flex:none;padding:5px 12px;">View</button></td></tr>
+            <tr><td>#1020</td><td><div class="user-cell"><div class="avatar-placeholder">R</div>Raj Singh</div></td><td>Onions 15kg</td><td>15kg</td><td>₹600</td><td>22 Apr 2026</td><td><span class="badge-status badge-cancelled">Cancelled</span></td><td><button class="btn-sm edit" style="flex:none;padding:5px 12px;">View</button></td></tr>
+            <tr><td>#1019</td><td><div class="user-cell"><div class="avatar-placeholder">K</div>Kavita Joshi</div></td><td>Wheat 100kg</td><td>100kg</td><td>₹6,400</td><td>21 Apr 2026</td><td><span class="badge-status badge-completed">Completed</span></td><td><button class="btn-sm edit" style="flex:none;padding:5px 12px;">View</button></td></tr>
+            <tr><td>#1018</td><td><div class="user-cell"><div class="avatar-placeholder">M</div>Mukesh Verma</div></td><td>Corn 30kg</td><td>30kg</td><td>₹840</td><td>20 Apr 2026</td><td><span class="badge-status badge-process">Processing</span></td><td><button class="btn-sm edit" style="flex:none;padding:5px 12px;">View</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: MESSAGES ─────────────────────────────────── -->
+  <div class="page" id="page-messages">
+    <div class="page-header">
+      <div>
+        <h1>Messages</h1>
+        <ul class="breadcrumb">
+          <li><a href="#">AgriMart</a></li><li><i class='bx bx-chevron-right'></i></li>
+          <li><a class="active" href="#">Inbox</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="overflow:hidden;">
+      <div class="msg-layout">
+        <div class="msg-list">
+          <div class="msg-list-head">Conversations</div>
+          <div class="msg-item active">
+            <div class="msg-avatar">A</div>
+            <div style="flex:1;overflow:hidden;">
+              <div class="msg-name">Amit Shah</div>
+              <div class="msg-preview">Is wheat available for bulk?</div>
+            </div>
+            <div class="msg-time">2h</div>
+          </div>
+          <div class="msg-item">
+            <div class="msg-avatar">P</div>
+            <div style="flex:1;overflow:hidden;">
+              <div class="msg-name">Priya Mehta</div>
+              <div class="msg-preview">Thanks for quick delivery!</div>
+            </div>
+            <div class="msg-time">5h</div>
+          </div>
+          <div class="msg-item">
+            <div class="msg-avatar">S</div>
+            <div style="flex:1;overflow:hidden;">
+              <div class="msg-name">Suresh Kumar</div>
+              <div class="msg-preview">When can you dispatch rice?</div>
+            </div>
+            <div class="msg-time">1d</div>
+          </div>
+          <div class="msg-item">
+            <div class="msg-avatar">N</div>
+            <div style="flex:1;overflow:hidden;">
+              <div class="msg-name">Neha Sharma</div>
+              <div class="msg-preview">Good quality potatoes!</div>
+            </div>
+            <div class="msg-time">2d</div>
+          </div>
+        </div>
+        <div class="msg-chat" style="display:flex;flex-direction:column;">
+          <div class="msg-chat-head">
+            <div class="msg-avatar">A</div>
+            <div>
+              <div class="msg-name">Amit Shah</div>
+              <div style="font-size:12px;color:var(--muted);">Retailer · Mumbai</div>
+            </div>
+          </div>
+          <div class="msg-chat-body">
+            <div class="bubble received">Hello! Is your premium wheat available for bulk order this week?</div>
+            <div class="bubble sent">Hi Amit! Yes, we have 500kg available. What quantity do you need?</div>
+            <div class="bubble received">I need around 200kg. What's the best price you can offer?</div>
+            <div class="bubble sent">For 200kg, I can offer ₹60/kg. That includes delivery to your warehouse.</div>
+            <div class="bubble received">That sounds good. Can you confirm quality certification?</div>
+          </div>
+          <div class="msg-chat-input">
+            <input type="text" placeholder="Type a message…" id="chatInput">
+            <button class="btn-primary" style="padding:10px 16px;" onclick="sendMsg()"><i class='bx bx-send'></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: TEAM ─────────────────────────────────────── -->
+  <div class="page" id="page-team">
+    <div class="page-header">
+      <div>
+        <h1>Team</h1>
+        <ul class="breadcrumb">
+          <li><a href="#">AgriMart</a></li><li><i class='bx bx-chevron-right'></i></li>
+          <li><a class="active" href="#">Team Members</a></li>
+        </ul>
+      </div>
+      <button class="btn-primary"><i class='bx bx-plus'></i> Add Member</button>
+    </div>
+
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Member</th><th>Role</th><th>Contact</th><th>Joined</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="user-cell"><div class="avatar-placeholder" style="background:#D8F3DC;color:#2D6A4F;">R</div>Rajan Patel (You)</div></td>
+              <td>Farm Owner</td><td>+91 98765 43210</td><td>Jan 2024</td>
+              <td><span class="badge-status badge-active">Active</span></td>
+              <td><button class="btn-sm edit" style="flex:none;padding:5px 12px;">Edit</button></td>
+            </tr>
+            <tr>
+              <td><div class="user-cell"><div class="avatar-placeholder" style="background:#FFF3CD;color:#92600A;">V</div>Vijay Yadav</div></td>
+              <td>Field Manager</td><td>+91 87654 32109</td><td>Mar 2024</td>
+              <td><span class="badge-status badge-active">Active</span></td>
+              <td><button class="btn-sm edit" style="flex:none;padding:5px 12px;">Edit</button></td>
+            </tr>
+            <tr>
+              <td><div class="user-cell"><div class="avatar-placeholder" style="background:#EFF6FF;color:#2563EB;">S</div>Sita Devi</div></td>
+              <td>Packing Supervisor</td><td>+91 76543 21098</td><td>Jun 2024</td>
+              <td><span class="badge-status badge-active">Active</span></td>
+              <td><button class="btn-sm edit" style="flex:none;padding:5px 12px;">Edit</button></td>
+            </tr>
+            <tr>
+              <td><div class="user-cell"><div class="avatar-placeholder" style="background:#FEE2E2;color:#DC2626;">M</div>Mohan Lal</div></td>
+              <td>Logistics</td><td>+91 65432 10987</td><td>Sep 2024</td>
+              <td><span class="badge-status badge-inactive">On Leave</span></td>
+              <td><button class="btn-sm edit" style="flex:none;padding:5px 12px;">Edit</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: PROFILE ──────────────────────────────────── -->
+  <div class="page" id="page-profile">
+    <div class="page-header">
+      <div>
+        <h1>My Profile</h1>
+        <ul class="breadcrumb">
+          <li><a href="#">AgriMart</a></li><li><i class='bx bx-chevron-right'></i></li>
+          <li><a class="active" href="#">Profile</a></li>
+        </ul>
+      </div>
+      <button class="btn-primary"><i class='bx bx-edit'></i> Edit Profile</button>
+    </div>
+
+    <div class="profile-hero">
+      <div class="profile-avatar">R</div>
+      <div>
+        <div class="profile-name">Rajan Patel</div>
+        <div class="profile-meta">🌾 Wheat & Grain Farmer · Madhya Pradesh, India</div>
+        <div class="profile-badges">
+          <span class="profile-badge"><i class='bx bxs-check-shield'></i> Verified Farmer</span>
+          <span class="profile-badge"><i class='bx bxs-star'></i> 4.8 Rating</span>
+          <span class="profile-badge"><i class='bx bxs-package'></i> 1,024 Orders</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-equal">
+      <div class="card">
+        <div class="card-head"><h3>Personal Information</h3></div>
+        <div class="card-body">
+          <div class="form-group"><label>Full Name</label><input class="form-control" value="Rajan Patel"></div>
+          <div class="form-group"><label>Email</label><input class="form-control" value="rajan.patel@email.com"></div>
+          <div class="form-group"><label>Phone</label><input class="form-control" value="+91 98765 43210"></div>
+          <div class="form-group"><label>Location</label><input class="form-control" value="Bhopal, Madhya Pradesh"></div>
+          <div class="form-actions">
+            <button class="btn-primary">Save Changes</button>
+            <button class="btn-primary btn-outline">Cancel</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Farm Details</h3></div>
+        <div class="card-body">
+          <div class="form-group"><label>Farm Name</label><input class="form-control" value="Patel Organic Farm"></div>
+          <div class="form-group"><label>Farm Size</label><input class="form-control" value="120 acres"></div>
+          <div class="form-group"><label>Primary Crops</label><input class="form-control" value="Wheat, Rice, Corn"></div>
+          <div class="form-group"><label>Certification</label><input class="form-control" value="Organic Certified (2024)"></div>
+          <div class="form-actions">
+            <button class="btn-primary">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: NOTIFICATIONS ────────────────────────────── -->
+  <div class="page" id="page-notifications">
+    <div class="page-header">
+      <div>
+        <h1>Notifications</h1>
+        <ul class="breadcrumb">
+          <li><a href="#">AgriMart</a></li><li><i class='bx bx-chevron-right'></i></li>
+          <li><a class="active" href="#">Alerts</a></li>
+        </ul>
+      </div>
+      <button class="btn-primary btn-outline">Mark All Read</button>
+    </div>
+
+    <div class="card">
+      <div class="notif-list">
+        <div class="notif-item">
+          <div class="notif-dot"></div>
+          <div>
+            <div class="notif-title">New Order Received 🎉</div>
+            <div class="notif-desc">Amit Shah placed an order for 200kg Wheat — ₹12,000</div>
+            <div class="notif-time">2 hours ago</div>
+          </div>
+        </div>
+        <div class="notif-item">
+          <div class="notif-dot"></div>
+          <div>
+            <div class="notif-title">Payment Confirmed ✅</div>
+            <div class="notif-desc">Order #1021 payment of ₹800 has been received</div>
+            <div class="notif-time">5 hours ago</div>
+          </div>
+        </div>
+        <div class="notif-item">
+          <div class="notif-dot"></div>
+          <div>
+            <div class="notif-title">Low Stock Alert ⚠️</div>
+            <div class="notif-desc">Red Onions stock is below 10kg. Consider restocking.</div>
+            <div class="notif-time">Yesterday</div>
+          </div>
+        </div>
+        <div class="notif-item">
+          <div class="notif-dot read"></div>
+          <div>
+            <div class="notif-title">Review Received ⭐</div>
+            <div class="notif-desc">Neha Sharma left a 5-star review: "Excellent quality potatoes!"</div>
+            <div class="notif-time">2 days ago</div>
+          </div>
+        </div>
+        <div class="notif-item">
+          <div class="notif-dot read"></div>
+          <div>
+            <div class="notif-title">Delivery Confirmed 🚚</div>
+            <div class="notif-desc">Order #1019 has been delivered to Kavita Joshi</div>
+            <div class="notif-time">3 days ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: SETTINGS ─────────────────────────────────── -->
+  <div class="page" id="page-settings">
+    <div class="page-header">
+      <div>
+        <h1>Settings</h1>
+        <ul class="breadcrumb">
+          <li><a href="#">AgriMart</a></li><li><i class='bx bx-chevron-right'></i></li>
+          <li><a class="active" href="#">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid-equal">
+      <div class="card">
+        <div class="card-head"><h3>Notifications</h3></div>
+        <div class="card-body">
+          <div class="settings-section">
+            <div class="setting-row">
+              <div><div class="setting-label">New Order Alerts</div><div class="setting-desc">Get notified on new orders</div></div>
+              <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-label">Payment Received</div><div class="setting-desc">Alert when payment is confirmed</div></div>
+              <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-label">Low Stock Warnings</div><div class="setting-desc">Alert when stock goes below 20kg</div></div>
+              <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-label">Review Notifications</div><div class="setting-desc">Get notified on customer reviews</div></div>
+              <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Privacy & Security</h3></div>
+        <div class="card-body">
+          <div class="settings-section">
+            <div class="setting-row">
+              <div><div class="setting-label">Two-Factor Auth</div><div class="setting-desc">Add extra security to your account</div></div>
+              <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-label">Profile Visibility</div><div class="setting-desc">Allow retailers to view your profile</div></div>
+              <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-label">Analytics Sharing</div><div class="setting-desc">Share data for platform improvements</div></div>
+              <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:8px;"><label>Change Password</label><input class="form-control" type="password" placeholder="New password"></div>
+          <button class="btn-primary">Update Password</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── ADD PRODUCT MODAL ─────────────────────────────────── -->
+<div class="modal-overlay" id="addProductModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Add New Product</h3>
+      <i class='bx bx-x modal-close' onclick="document.getElementById('addProductModal').classList.remove('open')"></i>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Product Name</label><input class="form-control" placeholder="e.g. Premium Wheat"></div>
+        <div class="form-group"><label>Category</label>
+          <select class="form-control"><option>Grains</option><option>Vegetables</option><option>Fruits</option><option>Dairy</option></select>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Price per kg (₹)</label><input class="form-control" type="number" placeholder="64"></div>
+        <div class="form-group"><label>Available Stock (kg)</label><input class="form-control" type="number" placeholder="500"></div>
+      </div>
+      <div class="form-group"><label>Description</label><textarea class="form-control" rows="3" placeholder="Describe your product quality, origin…" style="resize:vertical;"></textarea></div>
+      <div class="form-group"><label>Harvest Date</label><input class="form-control" type="date"></div>
+      <div class="form-actions">
+        <button class="btn-primary" onclick="document.getElementById('addProductModal').classList.remove('open')">Add Product</button>
+        <button class="btn-primary btn-outline" onclick="document.getElementById('addProductModal').classList.remove('open')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ADD TODO MODAL ────────────────────────────────────── -->
+<div class="modal-overlay" id="addTodoModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Add New Task</h3>
+      <i class='bx bx-x modal-close' onclick="document.getElementById('addTodoModal').classList.remove('open')"></i>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label>Task</label><input class="form-control" id="newTodoInput" placeholder="Enter task description…"></div>
+      <div class="form-actions">
+        <button class="btn-primary" onclick="addTodo()">Add Task</button>
+        <button class="btn-primary btn-outline" onclick="document.getElementById('addTodoModal').classList.remove('open')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/Farmer.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!-- Stock management -->
+
+
+<!-- Inventory / My Store Page -->
+<div class="page" id="page-mystore">
+  <div class="page-header">
+    <div>
+      <h1>My Store</h1>
+      <ul class="breadcrumb">
+        <li><a href="#">AgriMart</a></li><li><i class='bx bx-chevron-right'></i></li>
+        <li><a class="active" href="#">My Store</a></li>
+      </ul>
+    </div>
+    <button class="btn-primary" onclick="document.getElementById('addProductModal').classList.add('open')">
+      <i class='bx bx-plus'></i> Add Product
+    </button>
+  </div>
+
+  <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="stat-card">
+      <div class="stat-icon green"><i class='bx bxs-leaf'></i></div>
+      <div><div class="stat-val">48</div><div class="stat-label">Total Products</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon gold"><i class='bx bxs-star'></i></div>
+      <div><div class="stat-val">4.8★</div><div class="stat-label">Store Rating</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon red"><i class='bx bxs-error'></i></div>
+      <div><div class="stat-val">2</div><div class="stat-label">Out of Stock</div></div>
+    </div>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="product-thumb">🌾</div>
+      <div class="product-info">
+        <div class="product-name">Premium Wheat</div>
+        <div class="product-price">₹64/kg</div>
+        <div class="product-stock">Stock: 500 kg</div>
+        <div class="product-actions">
+          <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+          <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb">🍅</div>
+      <div class="product-info">
+        <div class="product-name">Fresh Tomatoes</div>
+        <div class="product-price">₹64/kg</div>
+        <div class="product-stock">Stock: 120 kg</div>
+        <div class="product-actions">
+          <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+          <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb">🍚</div>
+      <div class="product-info">
+        <div class="product-name">Basmati Rice</div>
+        <div class="product-price">₹75/kg</div>
+        <div class="product-stock">Stock: 800 kg</div>
+        <div class="product-actions">
+          <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+          <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb">🧅</div>
+      <div class="product-info">
+        <div class="product-name">Red Onions</div>
+        <div class="product-price">₹40/kg</div>
+        <div class="product-stock" style="color:var(--red);">Out of Stock</div>
+        <div class="product-actions">
+          <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+          <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb">🥔</div>
+      <div class="product-info">
+        <div class="product-name">Potatoes</div>
+        <div class="product-price">₹35/kg</div>
+        <div class="product-stock">Stock: 300 kg</div>
+        <div class="product-actions">
+          <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+          <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb">🌽</div>
+      <div class="product-info">
+        <div class="product-name">Sweet Corn</div>
+        <div class="product-price">₹28/kg</div>
+        <div class="product-stock">Stock: 250 kg</div>
+        <div class="product-actions">
+          <button class="btn-sm edit"><i class='bx bx-edit'></i> Edit</button>
+          <button class="btn-sm del"><i class='bx bx-trash'></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

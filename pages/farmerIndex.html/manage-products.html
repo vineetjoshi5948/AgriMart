@@ -1,0 +1,114 @@
+<!-- Edit/delete products -->
+
+
+<!-- Manage Products Page -->
+<div class="page" id="page-manage-products">
+  <div class="page-header">
+    <div>
+      <h1>Manage Products</h1>
+      <ul class="breadcrumb">
+        <li><a href="#">AgriMart</a></li><li><i class='bx bx-chevron-right'></i></li>
+        <li><a class="active" href="#">Manage Products</a></li>
+      </ul>
+    </div>
+    <button class="btn-primary" onclick="document.getElementById('addProductModal').classList.add('open')">
+      <i class='bx bx-plus'></i> Add Product
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h3>Product Inventory</h3>
+      <div class="actions"><i class='bx bx-search'></i><i class='bx bx-filter'></i></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Rating</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="user-cell"><span style="font-size:24px;">🌾</span><strong>Premium Wheat</strong></div></td>
+            <td>Grains</td>
+            <td>₹64/kg</td>
+            <td>500 kg</td>
+            <td>4.8 ★</td>
+            <td><span class="badge-status badge-active">Active</span></td>
+            <td>
+              <button class="btn-sm edit" style="flex:none;padding:5px 12px;"><i class='bx bx-edit'></i></button>
+              <button class="btn-sm del" style="flex:none;padding:5px 12px;"><i class='bx bx-trash'></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="user-cell"><span style="font-size:24px;">🍅</span><strong>Fresh Tomatoes</strong></div></td>
+            <td>Vegetables</td>
+            <td>₹64/kg</td>
+            <td>120 kg</td>
+            <td>4.5 ★</td>
+            <td><span class="badge-status badge-active">Active</span></td>
+            <td>
+              <button class="btn-sm edit" style="flex:none;padding:5px 12px;"><i class='bx bx-edit'></i></button>
+              <button class="btn-sm del" style="flex:none;padding:5px 12px;"><i class='bx bx-trash'></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="user-cell"><span style="font-size:24px;">🍚</span><strong>Basmati Rice</strong></div></td>
+            <td>Grains</td>
+            <td>₹75/kg</td>
+            <td>800 kg</td>
+            <td>4.9 ★</td>
+            <td><span class="badge-status badge-active">Active</span></td>
+            <td>
+              <button class="btn-sm edit" style="flex:none;padding:5px 12px;"><i class='bx bx-edit'></i></button>
+              <button class="btn-sm del" style="flex:none;padding:5px 12px;"><i class='bx bx-trash'></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="user-cell"><span style="font-size:24px;">🧅</span><strong>Red Onions</strong></div></td>
+            <td>Vegetables</td>
+            <td>₹40/kg</td>
+            <td>0 kg</td>
+            <td>4.3 ★</td>
+            <td><span class="badge-status badge-inactive">Out of Stock</span></td>
+            <td>
+              <button class="btn-sm edit" style="flex:none;padding:5px 12px;"><i class='bx bx-edit'></i></button>
+              <button class="btn-sm del" style="flex:none;padding:5px 12px;"><i class='bx bx-trash'></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="user-cell"><span style="font-size:24px;">🥔</span><strong>Potatoes</strong></div></td>
+            <td>Vegetables</td>
+            <td>₹35/kg</td>
+            <td>300 kg</td>
+            <td>4.7 ★</td>
+            <td><span class="badge-status badge-active">Active</span></td>
+            <td>
+              <button class="btn-sm edit" style="flex:none;padding:5px 12px;"><i class='bx bx-edit'></i></button>
+              <button class="btn-sm del" style="flex:none;padding:5px 12px;"><i class='bx bx-trash'></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="user-cell"><span style="font-size:24px;">🌽</span><strong>Sweet Corn</strong></div></td>
+            <td>Vegetables</td>
+            <td>₹28/kg</td>
+            <td>250 kg</td>
+            <td>4.6 ★</td>
+            <td><span class="badge-status badge-active">Active</span></td>
+            <td>
+              <button class="btn-sm edit" style="flex:none;padding:5px 12px;"><i class='bx bx-edit'></i></button>
+              <button class="btn-sm del" style="flex:none;padding:5px 12px;"><i class='bx bx-trash'></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

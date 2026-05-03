@@ -1,0 +1,108 @@
+<!-- Income, payments, reports -->
+
+<!-- Analytics / Earnings Page -->
+<div class="page" id="page-analytics">
+  <div class="page-header">
+    <div>
+      <h1>Analytics</h1>
+      <ul class="breadcrumb">
+        <li><a href="#">AgriMart</a></li><li><i class='bx bx-chevron-right'></i></li>
+        <li><a class="active" href="#">Analytics</a></li>
+      </ul>
+    </div>
+    <button class="btn-primary btn-gold"><i class='bx bxs-cloud-download'></i> Export</button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-icon green"><i class='bx bxs-trending-up'></i></div>
+      <div><div class="stat-val">₹8.2L</div><div class="stat-label">Monthly Revenue</div><div class="stat-delta up">▲ 18% vs last month</div></div>
+    </div>
+    <div class="stat-card"><div class="stat-icon gold"><i class='bx bxs-cart'></i></div>
+      <div><div class="stat-val">342</div><div class="stat-label">Orders This Month</div><div class="stat-delta up">▲ 22%</div></div>
+    </div>
+    <div class="stat-card"><div class="stat-icon blue"><i class='bx bxs-user-check'></i></div>
+      <div><div class="stat-val">89%</div><div class="stat-label">Customer Satisfaction</div><div class="stat-delta up">▲ 3%</div></div>
+    </div>
+    <div class="stat-card"><div class="stat-icon red"><i class='bx bxs-x-circle'></i></div>
+      <div><div class="stat-val">4.2%</div><div class="stat-label">Return Rate</div><div class="stat-delta down">▼ 0.8%</div></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:20px;">
+    <div class="card">
+      <div class="card-head"><h3>Monthly Revenue Trend</h3></div>
+      <div class="card-body">
+        <div class="chart-bars">
+          <div class="bar-col"><div class="bar" style="height:55%" data-val="₹4.2L"></div><span class="bar-label">Nov</span></div>
+          <div class="bar-col"><div class="bar" style="height:42%" data-val="₹3.1L"></div><span class="bar-label">Dec</span></div>
+          <div class="bar-col"><div class="bar gold" style="height:70%" data-val="₹5.6L"></div><span class="bar-label">Jan</span></div>
+          <div class="bar-col"><div class="bar" style="height:60%" data-val="₹4.8L"></div><span class="bar-label">Feb</span></div>
+          <div class="bar-col"><div class="bar" style="height:80%" data-val="₹6.5L"></div><span class="bar-label">Mar</span></div>
+          <div class="bar-col"><div class="bar gold" style="height:100%" data-val="₹8.2L"></div><span class="bar-label">Apr</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Sales by Category</h3></div>
+      <div class="card-body">
+        <div class="donut-wrap">
+          <svg class="donut-svg" width="120" height="120" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border)" stroke-width="18"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="var(--green)" stroke-width="18"
+              stroke-dasharray="188 126" stroke-dashoffset="25" transform="rotate(-90 60 60)"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="var(--gold)" stroke-width="18"
+              stroke-dasharray="75 239" stroke-dashoffset="-163" transform="rotate(-90 60 60)"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#2563EB" stroke-width="18"
+              stroke-dasharray="51 263" stroke-dashoffset="-238" transform="rotate(-90 60 60)"/>
+            <text x="60" y="64" text-anchor="middle" font-size="13" fill="var(--dark)" font-weight="700" font-family="Outfit">Total</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>Grains — 60%</div>
+            <div class="legend-item"><span class="legend-dot" style="background:var(--gold)"></span>Vegetables — 24%</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#2563EB"></span>Fruits — 16%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Products -->
+  <div class="card">
+    <div class="card-head"><h3>Top Selling Products</h3></div>
+    <div class="card-body">
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;">
+            <span>🌾 Wheat</span><span style="color:var(--green);font-weight:700;">₹3.2L</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;">
+            <span>🍚 Basmati Rice</span><span style="color:var(--green);font-weight:700;">₹2.5L</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;">
+            <span>🍅 Tomatoes</span><span style="color:var(--gold);font-weight:700;">₹1.1L</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill gold" style="width:28%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;">
+            <span>🥔 Potatoes</span><span style="color:var(--gold);font-weight:700;">₹0.9L</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill gold" style="width:22%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;">
+            <span>🧅 Onions</span><span style="color:var(--red);font-weight:700;">₹0.5L</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill red" style="width:13%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
