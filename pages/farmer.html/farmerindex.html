@@ -6,8 +6,8 @@
 <title>AgriMart – Farmer Dashboard</title>
 <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/farmer.css">
-<link rel="icon" href="/assets/icons/icon.ico" type="image/png">
+<link rel="stylesheet" href="../../css/farmer.css">
+<link rel="icon" href="../../assets/icons/icon.ico" type="image/png">
 </head>
 <body>
 
@@ -21,34 +21,34 @@
   <div class="nav-section">Main Menu</div>
   <ul class="side-menu">
     <li class="active" data-page="dashboard">
-      <a href="#"><i class='bx bxs-dashboard'></i><span class="text">Dashboard</span></a>
+      <a href="#" onclick="event.preventDefault();goTo('dashboard')"><i class='bx bxs-dashboard'></i><span class="text">Dashboard</span></a>
     </li>
     <li data-page="mystore">
-      <a href="#"><i class='bx bxs-store'></i><span class="text">My Store</span></a>
+      <a href="#" onclick="event.preventDefault();goTo('mystore')"><i class='bx bxs-store'></i><span class="text">My Store</span></a>
     </li>
     <li data-page="analytics">
-      <a href="#"><i class='bx bxs-bar-chart-alt-2'></i><span class="text">Analytics</span></a>
+      <a href="#" onclick="event.preventDefault();goTo('analytics')"><i class='bx bxs-bar-chart-alt-2'></i><span class="text">Analytics</span></a>
     </li>
     <li data-page="team">
-      <a href="#"><i class='bx bxs-group'></i><span class="text">Team</span></a>
+      <a href="#" onclick="event.preventDefault();goTo('team')"><i class='bx bxs-group'></i><span class="text">Team</span></a>
     </li>
   </ul>
 
   <div class="nav-section">Account</div>
   <ul class="side-menu">
     <li data-page="profile">
-      <a href="#"><i class='bx bxs-user-circle'></i><span class="text">Profile</span></a>
+      <a href="#" onclick="event.preventDefault();goTo('profile')"><i class='bx bxs-user-circle'></i><span class="text">Profile</span></a>
     </li>
     <li data-page="notifications">
-      <a href="#"><i class='bx bxs-bell'></i><span class="text">Notifications</span></a>
+      <a href="#" onclick="event.preventDefault();goTo('notifications')"><i class='bx bxs-bell'></i><span class="text">Notifications</span></a>
     </li>
     <li data-page="settings">
-      <a href="#"><i class='bx bxs-cog'></i><span class="text">Settings</span></a>
+      <a href="#" onclick="event.preventDefault();goTo('settings')"><i class='bx bxs-cog'></i><span class="text">Settings</span></a>
     </li>
   </ul>
 
   <div class="sidebar-bottom">
-    <a href="/index.html" class="logout"><i class='bx bxs-log-out-circle'></i><span class="text">Logout</span></a>
+    <a href="#" class="logout" id="farmerLogout"><i class='bx bxs-log-out-circle'></i><span class="text">Logout</span></a>
   </div>
 </section>
 
@@ -61,7 +61,7 @@
 
     <div class="search-wrap">
       <i class='bx bx-search'></i>
-      <input type="text" placeholder="Search products, orders…">
+      <input type="text" id="farmerSearchInput" placeholder="Search products, orders…">
     </div>
 
     <div class="nav-spacer"></div>
@@ -71,10 +71,7 @@
         <i class='bx bxs-bell'></i>
         <span class="badge">3</span>
       </button>
-      <button class="nav-btn" onclick="goTo('messages')">
-        <i class='bx bxs-message'></i>
-        <span class="badge">5</span>
-      </button>
+
       <div class="dark-toggle" id="darkToggle" title="Dark mode"></div>
       <div class="nav-profile" onclick="goTo('profile')">
         <div class="avatar-placeholder" style="width:34px;height:34px;font-size:15px;">R</div>
@@ -97,42 +94,39 @@
           <li><a class="active" href="#">Overview</a></li>
         </ul>
       </div>
-      <button class="btn-primary btn-gold">
-        <i class='bx bxs-cloud-download'></i> Download Report
-      </button>
     </div>
 
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon green"><i class='bx bxs-package'></i></div>
         <div>
-          <div class="stat-val">1,024</div>
+          <div class="stat-val" id="dashTotalOrders">0</div>
           <div class="stat-label">Total Orders</div>
-          <div class="stat-delta up">▲ 12% this month</div>
+          <div class="stat-delta" id="dashPendingOrders">0 pending</div>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon gold"><i class='bx bxs-dollar-circle'></i></div>
         <div>
-          <div class="stat-val">₹2,54,800</div>
+          <div class="stat-val" id="dashTotalRevenue">&#x20B9;0</div>
           <div class="stat-label">Total Revenue</div>
-          <div class="stat-delta up">▲ 8.3% this month</div>
+          <div class="stat-delta up">Accepted + delivered</div>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon blue"><i class='bx bxs-group'></i></div>
         <div>
-          <div class="stat-val">2,834</div>
-          <div class="stat-label">Visitors</div>
-          <div class="stat-delta up">▲ 5% this week</div>
+          <div class="stat-val" id="dashDeliveredOrders">0</div>
+          <div class="stat-label">Delivered Orders</div>
+          <div class="stat-delta up">Completed sales</div>
         </div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon red"><i class='bx bxs-leaf'></i></div>
+        <div class="stat-icon red"><i class='bx bxs-basket'></i></div>
         <div>
-          <div class="stat-val">48</div>
+          <div class="stat-val" id="dashTotalProducts">0</div>
           <div class="stat-label">Products Listed</div>
-          <div class="stat-delta down">▼ 2 out of stock</div>
+          <div class="stat-delta down" id="dashLowStockCount">0 low stock</div>
         </div>
       </div>
     </div>
@@ -140,56 +134,52 @@
     <div class="grid-2" style="margin-bottom:20px;">
       <div class="card">
         <div class="card-head">
-          <h3>Today's Tasks</h3>
-          <div class="actions">
-            <i class='bx bx-plus' id="addTodoBtn"></i>
-            <i class='bx bx-filter'></i>
-          </div>
+          <h3>Recent Orders</h3>
+          <span class="badge-status badge-active" id="recentOrderCount">0 orders</span>
         </div>
         <div class="card-body">
-          <div class="todo-list" id="todoList">
-            <div class="todo-item done">
-              <input type="checkbox" class="todo-cb" checked>
-              <span class="todo-text">Pack wheat orders for dispatch</span>
-              <i class='bx bx-dots-vertical-rounded todo-more'></i>
-            </div>
-            <div class="todo-item pending-t">
-              <input type="checkbox" class="todo-cb">
-              <span class="todo-text">Upload new product photos</span>
-              <i class='bx bx-dots-vertical-rounded todo-more'></i>
-            </div>
-            <div class="todo-item done">
-              <input type="checkbox" class="todo-cb" checked>
-              <span class="todo-text">Call courier for pickup</span>
-              <i class='bx bx-dots-vertical-rounded todo-more'></i>
-            </div>
-            <div class="todo-item pending-t">
-              <input type="checkbox" class="todo-cb">
-              <span class="todo-text">Update price for tomatoes</span>
-              <i class='bx bx-dots-vertical-rounded todo-more'></i>
-            </div>
-            <div class="todo-item pending-t">
-              <input type="checkbox" class="todo-cb">
-              <span class="todo-text">Review retailer feedback</span>
-              <i class='bx bx-dots-vertical-rounded todo-more'></i>
-            </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Product</th><th>Retailer</th><th>Qty</th><th>Total</th><th>Status</th><th>Action</th></tr></thead>
+              <tbody id="farmerRecentOrders">
+                <tr><td colspan="6">Loading recent orders...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <h3>Low Stock Warnings</h3>
+          <span class="badge-status badge-inactive" id="lowStockThreshold">Threshold 20</span>
+        </div>
+        <div class="card-body">
+          <div class="analytics-list" id="lowStockList">
+            <div class="empty-analytics">Loading inventory warnings...</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Weekly Revenue Chart -->
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card">
+        <div class="card-head"><h3>Monthly Sales (&#x20B9;)</h3></div>
+        <div class="card-body">
+          <div class="chart-bars" id="monthlySalesChart"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Order Status Distribution</h3></div>
+        <div class="card-body">
+          <div class="status-chart" id="orderStatusChart"></div>
+        </div>
+      </div>
+    </div>
     <div class="card">
-      <div class="card-head"><h3>Weekly Revenue (₹)</h3></div>
+      <div class="card-head"><h3>Top Products</h3></div>
       <div class="card-body">
-        <div class="chart-bars" id="revenueChart">
-          <div class="bar-col"><div class="bar" style="height:60%" data-val="₹18k"></div><span class="bar-label">Mon</span></div>
-          <div class="bar-col"><div class="bar gold" style="height:85%" data-val="₹25k"></div><span class="bar-label">Tue</span></div>
-          <div class="bar-col"><div class="bar" style="height:50%" data-val="₹15k"></div><span class="bar-label">Wed</span></div>
-          <div class="bar-col"><div class="bar" style="height:95%" data-val="₹29k"></div><span class="bar-label">Thu</span></div>
-          <div class="bar-col"><div class="bar gold" style="height:75%" data-val="₹22k"></div><span class="bar-label">Fri</span></div>
-          <div class="bar-col"><div class="bar" style="height:65%" data-val="₹19k"></div><span class="bar-label">Sat</span></div>
-          <div class="bar-col"><div class="bar" style="height:40%" data-val="₹12k"></div><span class="bar-label">Sun</span></div>
+        <div class="analytics-list" id="topProductsList">
+          <div class="empty-analytics">Loading top products...</div>
         </div>
       </div>
     </div>
@@ -212,16 +202,16 @@
 
     <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);">
       <div class="stat-card">
-        <div class="stat-icon green"><i class='bx bxs-leaf'></i></div>
-        <div><div class="stat-val">48</div><div class="stat-label">Total Products</div></div>
+        <div class="stat-icon green"><i class='bx bxs-package'></i></div>
+        <div><div class="stat-val" id="storeTotalProducts">0</div><div class="stat-label">Total Products</div></div>
       </div>
       <div class="stat-card">
         <div class="stat-icon gold"><i class='bx bxs-star'></i></div>
-        <div><div class="stat-val">4.8★</div><div class="stat-label">Store Rating</div></div>
+        <div><div class="stat-val" id="storeRating">0.0★</div><div class="stat-label">Store Rating</div></div>
       </div>
       <div class="stat-card">
         <div class="stat-icon red"><i class='bx bxs-error'></i></div>
-        <div><div class="stat-val">2</div><div class="stat-label">Out of Stock</div></div>
+        <div><div class="stat-val" id="storeOutOfStock">0</div><div class="stat-label">Out of Stock</div></div>
       </div>
     </div>
 
@@ -311,7 +301,6 @@
           <li><a class="active" href="#">Analytics</a></li>
         </ul>
       </div>
-      <button class="btn-primary btn-gold"><i class='bx bxs-cloud-download'></i> Export</button>
     </div>
 
     <div class="stats-grid">
@@ -408,8 +397,6 @@
     </div>
   </div>
   
-  <!--Removed Message section from Dashboard-->
-
   <!-- ── PAGE: TEAM ─────────────────────────────────────── -->
   <div class="page" id="page-team">
     <div class="page-header">
@@ -426,7 +413,7 @@
     <div class="card">
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Member</th><th>Role</th><th>Contact</th><th>Joined</th><th>Status</th><th>Action</th></tr></thead>
+          <thead><tr><th>Product</th><th>Retailer</th><th>Qty</th><th>Total</th><th>Status</th><th>Action</th></tr></thead>
           <tbody>
             <tr>
               <td><div class="user-cell"><div class="avatar-placeholder" style="background:#D8F3DC;color:#2D6A4F;">R</div>Rajan Patel (You)</div></td>
@@ -643,22 +630,25 @@
       <i class='bx bx-x modal-close' onclick="document.getElementById('addProductModal').classList.remove('open')"></i>
     </div>
     <div class="modal-body">
-      <div class="form-grid">
-        <div class="form-group"><label>Product Name</label><input class="form-control" placeholder="e.g. Premium Wheat"></div>
-        <div class="form-group"><label>Category</label>
-          <select class="form-control"><option>Grains</option><option>Vegetables</option><option>Fruits</option><option>Dairy</option></select>
+      <form id="addProductForm">
+        <div class="form-grid">
+          <div class="form-group"><label>Product Name</label><input id="productName" class="form-control" placeholder="e.g. Premium Wheat" required></div>
+          <div class="form-group"><label>Category</label>
+            <select id="productCategory" class="form-control" required><option value="Grains">Grains</option><option value="Vegetables">Vegetables</option><option value="Fruits">Fruits</option><option value="Dairy">Dairy</option></select>
+          </div>
         </div>
-      </div>
-      <div class="form-grid">
-        <div class="form-group"><label>Price per kg (₹)</label><input class="form-control" type="number" placeholder="64"></div>
-        <div class="form-group"><label>Available Stock (kg)</label><input class="form-control" type="number" placeholder="500"></div>
-      </div>
-      <div class="form-group"><label>Description</label><textarea class="form-control" rows="3" placeholder="Describe your product quality, origin…" style="resize:vertical;"></textarea></div>
-      <div class="form-group"><label>Harvest Date</label><input class="form-control" type="date"></div>
-      <div class="form-actions">
-        <button class="btn-primary" onclick="document.getElementById('addProductModal').classList.remove('open')">Add Product</button>
-        <button class="btn-primary btn-outline" onclick="document.getElementById('addProductModal').classList.remove('open')">Cancel</button>
-      </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Price per kg (&#x20B9;)</label><input id="productPrice" class="form-control" type="number" min="0" step="0.01" placeholder="64" required></div>
+          <div class="form-group"><label>Available Stock (kg)</label><input id="productQuantity" class="form-control" type="number" min="1" step="1" placeholder="500" required></div>
+        </div>
+        <div class="form-group"><label>Description</label><textarea id="productDescription" class="form-control" rows="3" placeholder="Describe your product quality, origin…" style="resize:vertical;"></textarea></div>
+        <div class="form-group"><label>Product Image</label><input id="productImage" class="form-control" type="file" accept="image/*"></div>
+        <div class="form-group"><label>Harvest Date</label><input class="form-control" type="date"></div>
+        <div class="form-actions">
+          <button class="btn-primary" type="submit">Add Product</button>
+          <button class="btn-primary btn-outline" type="button" onclick="document.getElementById('addProductModal').classList.remove('open')">Cancel</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -680,6 +670,56 @@
   </div>
 </div>
 
-<script src="/js/Farmer.js"></script>
+
+
+<!-- EDIT PRODUCT MODAL -->
+<div class="modal-overlay" id="editProductModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Edit Product</h3>
+      <i class='bx bx-x modal-close' onclick="document.getElementById('editProductModal').classList.remove('open')"></i>
+    </div>
+    <div class="modal-body">
+      <form id="editProductForm">
+        <div class="form-grid">
+          <div class="form-group"><label>Product Name</label><input id="editProductName" class="form-control" required></div>
+          <div class="form-group"><label>Category</label>
+            <select id="editProductCategory" class="form-control" required>
+              <option value="Grains">Grains</option><option value="Vegetables">Vegetables</option>
+              <option value="Fruits">Fruits</option><option value="Dairy">Dairy</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Price per kg (&#x20B9;)</label><input id="editProductPrice" class="form-control" type="number" min="0" step="0.01" required></div>
+          <div class="form-group"><label>Stock (kg)</label><input id="editProductQuantity" class="form-control" type="number" min="0" step="1" required></div>
+        </div>
+        <div class="form-group"><label>Description</label><textarea id="editProductDescription" class="form-control" rows="3" style="resize:vertical;"></textarea></div>
+        <div class="form-group"><label>Replace Image (optional)</label><input id="editProductImage" class="form-control" type="file" accept="image/*"></div>
+        <div class="form-actions">
+          <button class="btn-primary" type="submit">Save Changes</button>
+          <button class="btn-primary btn-outline" type="button" onclick="document.getElementById('editProductModal').classList.remove('open')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- ── DELETE CONFIRM MODAL ──────────────────────────────── -->
+<div class="modal-overlay" id="deleteConfirmModal">
+  <div class="modal" style="max-width:400px; text-align:center;">
+    <div class="modal-head" style="justify-content:center; border-bottom:none;">
+      <h3 style="color:#ef4444;">Delete Product?</h3>
+    </div>
+    <div class="modal-body" style="padding-top:0;">
+      <p style="margin-bottom:20px; color:var(--text-color);">This action cannot be undone. Are you sure you want to remove this item from your store?</p>
+      <div class="form-actions" style="justify-content:center;">
+        <button class="btn-primary" id="confirmDeleteBtn" style="background-color:#ef4444; border-color:#ef4444;">Yes, Delete</button>
+        <button class="btn-primary btn-outline" onclick="document.getElementById('deleteConfirmModal').classList.remove('open')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../../js/Farmer.js"></script>
 </body>
 </html>

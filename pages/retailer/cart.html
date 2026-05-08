@@ -1,1 +1,25 @@
 <!-- Shopping cart -->
+
+<!--This is for shopping cart by retailer-->>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart | AgriRetail</title>
+  <link rel="stylesheet" href="../../css/retailer.css">
+  <script src="../../js/shell.js"></script>
+</head>
+<body data-page="cart">
+  <script>
+    document.body.insertAdjacentHTML("afterbegin", dashboardShell("Cart", "Retailer Cart", "Review farm products before confirming cash payment.", `
+      <section class="split-grid">
+        <div class="panel"><div class="panel-head"><h2>Cart Items</h2><span class="pill">Cash only</span></div><div class="cart-list" id="cartList"></div></div>
+        <aside class="panel"><div class="panel-head"><h2>Order Summary</h2></div><div id="cartSummary"></div><a class="btn primary" href="checkout.html" style="width:100%;margin-top:16px;">Proceed to Checkout</a></aside>
+      </section>
+    `));
+  </script>
+  <script src="../../js/app.js"></script>
+</body>
+</html>

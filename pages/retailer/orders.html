@@ -1,1 +1,26 @@
 <!-- Current + past orders -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders | AgriRetail</title>
+  <link rel="stylesheet" href="../../css/retailer.css">
+  <script src="../../js/shell.js"></script>
+</head>
+<body data-page="orders">
+  <script>
+    document.body.insertAdjacentHTML("afterbegin", dashboardShell("Orders", "Purchase & Sales History", "Track buying from farmers and retail sales movement.", `
+      <div class="tabs">
+        <button class="tab active" data-type="all">All</button>
+        <button class="tab" data-type="purchase">Purchases</button>
+        <button class="tab" data-type="sale">Sales</button>
+      </div>
+      <div class="orders-list" id="ordersList"></div>
+    `));
+  </script>
+  <script src="../../js/app.js"></script>
+</body>
+</html>

@@ -289,6 +289,26 @@ tbody tr:hover td{background:var(--light);}
 }
 .bar-label{font-size:11px;color:var(--muted);text-align:center;}
 
+.analytics-list{display:flex;flex-direction:column;gap:12px;}
+.analytics-row{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 14px;background:var(--light);border-radius:12px;border:1px solid var(--border);
+}
+.analytics-row strong{font-size:14px;color:var(--dark);}
+.analytics-row span{font-size:12px;color:var(--muted);}
+.analytics-main{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.analytics-value{font-weight:700;color:var(--green);white-space:nowrap;}
+.empty-analytics{padding:14px;border:1px dashed var(--border);border-radius:12px;color:var(--muted);font-size:13px;text-align:center;}
+.status-chart{display:flex;flex-direction:column;gap:12px;}
+.status-row{display:grid;grid-template-columns:90px 1fr 36px;align-items:center;gap:10px;font-size:13px;color:var(--dark);}
+.status-track{height:10px;border-radius:999px;background:var(--border);overflow:hidden;}
+.status-fill{height:100%;border-radius:999px;background:var(--green);}
+.status-fill.pending{background:var(--gold);}
+.status-fill.accepted{background:#2563EB;}
+.status-fill.shipped{background:#7C3AED;}
+.status-fill.delivered{background:var(--green);}
+.status-fill.cancelled{background:var(--red);}
+
 /* ─── FORM STYLES ───────────────────────────────────────── */
 .form-group{margin-bottom:18px;}
 .form-group label{display:block;font-size:13px;font-weight:600;color:var(--dark);margin-bottom:6px;}
@@ -302,6 +322,23 @@ tbody tr:hover td{background:var(--light);}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
 .form-actions{display:flex;gap:12px;margin-top:8px;}
+.image-preview{
+  min-height:120px;
+  border:1px dashed var(--border);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+  font-size:13px;
+  overflow:hidden;
+  background:var(--soft);
+}
+.image-preview img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+}
 
 /* ─── PRODUCT CARDS ─────────────────────────────────────── */
 .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px;}
@@ -313,6 +350,11 @@ tbody tr:hover td{background:var(--light);}
 .product-thumb{
   height:130px;background:var(--green-bg);
   display:flex;align-items:center;justify-content:center;font-size:48px;
+}
+.product-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 .product-info{padding:14px;}
 .product-name{font-weight:600;font-size:14.5px;color:var(--dark);}

@@ -1,1 +1,47 @@
 <!-- Retailer overview -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | AgriRetail</title>
+  <link rel="stylesheet" href="../../css/retailer.css">
+  <link rel="icon" href="/assets/icons/icon.ico" type="image/png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../../js/shell.js"></script>
+</head>
+<body data-page="dashboard">
+  <script>
+    document.body.insertAdjacentHTML("afterbegin", dashboardShell("Overview", "Retailer Dashboard", "Track purchases, farmer connections, sales and cash-only order movement.", `
+      <section class="panel hero-panel">
+        <div>
+          <p class="eyebrow">Direct from farmers</p>
+          <h1>Buy fresh, sell faster, settle in cash.</h1>
+          <p>Manage your agri-retail operation with live marketplace stock, farmer connections, sales listings and order histories in one polished workspace.</p>
+          <a class="btn primary" href="marketplace.html">Explore Marketplace</a>
+        </div>
+        <div class="hero-image" role="img" aria-label="Fresh vegetables at market"></div>
+      </section>
+      <section class="stats-grid" style="margin-top:18px;">
+        <article class="stat-card"><div class="stat-icon">↙</div><span>Total Purchases</span><strong>₹1.24L</strong></article>
+        <article class="stat-card"><div class="stat-icon">₹</div><span>Total Sales</span><strong>₹1.78L</strong></article>
+        <article class="stat-card"><div class="stat-icon">☘</div><span>Active Farmers</span><strong>28</strong></article>
+        <article class="stat-card"><div class="stat-icon">▣</div><span>Recent Orders</span><strong>64</strong></article>
+      </section>
+      <section class="dashboard-grid">
+        <div class="panel">
+          <div class="panel-head"><h2>Purchase & Sales Flow</h2><span class="pill">Chart.js</span></div>
+          <canvas id="salesChart" height="120"></canvas>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>Recent Orders</h2><a class="pill" href="orders.html">View all</a></div>
+          <div class="orders-list" id="recentOrders"></div>
+        </div>
+      </section>
+    `));
+  </script>
+  <script src="../../js/app.js"></script> <!--app-->
+</body>
+</html>

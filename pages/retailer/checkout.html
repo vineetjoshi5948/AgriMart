@@ -1,1 +1,32 @@
 <!-- Payment & order place -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | AgriRetail</title>
+  <link rel="stylesheet" href="../../css/retailer.css">
+  <script src="../../js/shell.js"></script>
+</head>
+<body data-page="checkout">
+  <script>
+    document.body.insertAdjacentHTML("afterbegin", dashboardShell("Checkout", "Cash Checkout", "Confirm pickup details. No online payment is collected.", `
+      <section class="split-grid">
+        <form class="panel form-grid" id="checkoutForm">
+          <div class="panel-head field full"><h2>Pickup Details</h2><span class="pill">Cash payment</span></div>
+          <div class="field"><label for="buyerName">Retailer name</label><input id="buyerName" required><span class="error"></span></div>
+          <div class="field"><label for="phone">Phone</label><input id="phone" required><span class="error"></span></div>
+          <div class="field"><label for="pickupDate">Pickup date</label><input id="pickupDate" type="date" required><span class="error"></span></div>
+          <div class="field"><label for="slot">Slot</label><select id="slot" required><option value="">Select slot</option><option>Morning</option><option>Afternoon</option><option>Evening</option></select><span class="error"></span></div>
+          <div class="field full"><label for="address">Pickup / delivery note</label><textarea id="address" required></textarea><span class="error"></span></div>
+          <div class="field full"><button class="btn primary" type="submit">Place Cash Order</button></div>
+        </form>
+        <aside class="panel"><div class="panel-head"><h2>Review</h2></div><div id="checkoutReview"></div></aside>
+      </section>
+    `));
+  </script>
+  <script src="../../js/app.js"></script>
+</body>
+</html>

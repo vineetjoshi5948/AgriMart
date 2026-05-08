@@ -193,24 +193,24 @@
         </div>
 
         <div id="loginSection" class="form-container active">
-            <form action="/login" method="POST">
+            <form id="loginForm">
                 <div class="input-group">
-                    <label>Username or Email</label>
-                    <input type="text" placeholder="Enter your username" required>
+                    <label>Email</label>
+                    <input id="loginEmail" type="email" placeholder="Enter your email" required>
                 </div>
                 <div class="input-group">
                     <label>Password</label>
-                    <input type="password" placeholder="Enter your password" required>
+                    <input id="loginPassword" type="password" placeholder="Enter your password" required>
                 </div>
                 <button type="submit" class="submit-btn">LOGIN</button>
             </form>
         </div>
 
         <div id="regSection" class="form-container">
-            <form action="/register" method="POST">
+            <form id="registerForm">
                 <div class="input-group">
                     <label>Full Name</label>
-                    <input type="text" placeholder="e.g. Rahul Sharma" required>
+                    <input id="regName" type="text" placeholder="e.g. Rahul Sharma" required>
                 </div>
 
                 <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 8px;">I am a:</label>
@@ -221,16 +221,12 @@
                 <input type="hidden" name="role" id="userRole" value="farmer">
 
                 <div class="input-group">
-                    <label>Username</label>
-                    <input type="text" placeholder="Choose a username" required>
-                </div>
-                <div class="input-group">
                     <label>Email Address</label>
-                    <input type="email" placeholder="name@example.com" required>
+                    <input id="regEmail" type="email" placeholder="name@example.com" required>
                 </div>
                 <div class="input-group">
                     <label>Password</label>
-                    <input type="password" placeholder="Create a password" required>
+                    <input id="regPassword" type="password" placeholder="Create a password" required>
                 </div>
                 <button type="submit" class="submit-btn">CREATE ACCOUNT</button>
             </form>
@@ -276,6 +272,124 @@
                 roleInput.value = 'retailer';
             }
         }
+
+        const API_BASE_URL = 'http://localhost:5000/api';
+        const AUTH_STORAGE_KEY = 'agriAuthToken';
+
+        function saveAuth(token, user) {
+            localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ token, user }));
+        }
+
+        async function authRequest(path, options = {}) {
+            const response = await fetch(`${API_BASE_URL}${path}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(options.headers || {}),
+                },
+                ...options,
+                body: options.body && typeof options.body !== 'string' ? JSON.stringify(options.body) : options.body,
+            });
+            return response;
+        }
+
+        async function submitLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const btn = event.target.querySelector('button[type="submit"]');
+
+            if (!email || !password) {
+                return showMsg('loginMsg', 'Please enter email and password.', 'error');
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Logging in...';
+            try {
+                const response = await authRequest('/auth/login', {
+                    method: 'POST',
+                    body: { email, password },
+                });
+
+                if (!response.ok) {
+                    const payload = await response.json().catch(() => ({}));
+                    showMsg('loginMsg', payload.message || 'Login failed. Check credentials.', 'error');
+                    return;
+                }
+
+                const payload = await response.json();
+                saveAuth(payload.token, { _id: payload._id, name: payload.name, email: payload.email, role: payload.role });
+                btn.textContent = 'Redirecting...';
+                if (payload.role === 'retailer') {
+                    location.href = 'pages/retailer/marketplace.html';
+                } else {
+                    location.href = 'pages/farmer.html/farmerindex.html';
+                }
+            } finally {
+                btn.disabled = false;
+                if (btn.textContent === 'Logging in...') btn.textContent = 'LOGIN';
+            }
+        }
+
+        async function submitRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+            const role = document.getElementById('userRole').value;
+            const btn = event.target.querySelector('button[type="submit"]');
+
+            if (!name || !email || !password) {
+                return showMsg('regMsg', 'Please fill all registration fields.', 'error');
+            }
+            if (password.length < 6) {
+                return showMsg('regMsg', 'Password must be at least 6 characters.', 'error');
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Creating account...';
+            try {
+                const response = await authRequest('/auth/register', {
+                    method: 'POST',
+                    body: { name, email, password, role },
+                });
+
+                if (!response.ok) {
+                    const payload = await response.json().catch(() => ({}));
+                    showMsg('regMsg', payload.message || 'Registration failed.', 'error');
+                    return;
+                }
+
+                const payload = await response.json();
+                saveAuth(payload.token, { _id: payload._id, name: payload.name, email: payload.email, role: payload.role });
+                btn.textContent = 'Redirecting...';
+                if (payload.role === 'retailer') {
+                    location.href = 'pages/retailer/marketplace.html';
+                } else {
+                    location.href = 'pages/farmer.html/farmerindex.html';
+                }
+            } finally {
+                btn.disabled = false;
+                if (btn.textContent === 'Creating account...') btn.textContent = 'CREATE ACCOUNT';
+            }
+        }
+
+        function showMsg(id, msg, type) {
+            let el = document.getElementById(id);
+            if (!el) {
+                el = document.createElement('div');
+                el.id = id;
+                el.style.cssText = 'margin-top:10px;padding:10px 14px;border-radius:6px;font-size:0.9rem;font-weight:600;';
+            }
+            el.textContent = msg;
+            el.style.background = type === 'error' ? '#fee2e2' : '#dcfce7';
+            el.style.color = type === 'error' ? '#dc2626' : '#16a34a';
+            const form = id === 'loginMsg' ? document.getElementById('loginForm') : document.getElementById('registerForm');
+            if (form && !document.getElementById(id)) form.appendChild(el);
+            setTimeout(() => el.remove(), 4000);
+        }
+
+        document.getElementById('loginForm')?.addEventListener('submit', submitLogin);
+        document.getElementById('registerForm')?.addEventListener('submit', submitRegister);
     </script>
 </body>
 </html>

@@ -1,1 +1,37 @@
 <!-- Retailer account settings -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | AgriRetail</title>
+  <link rel="stylesheet" href="../../css/retailer.css">
+  <script src="../../js/shell.js"></script>
+</head>
+<body data-page="profile">
+  <script>
+    document.body.insertAdjacentHTML("afterbegin", dashboardShell("Profile", "Retailer Profile", "Manage storefront identity and farmer-facing contact details.", `
+      <section class="split-grid">
+        <div class="profile-panel">
+          <div class="profile-hero" id="profileHero"><div class="profile-avatar" id="profileAvatar">VR</div><div><h2 id="profileDisplayName">Loading...</h2><p class="muted">Fresh produce retailer</p><span class="pill">Verified cash buyer</span></div></div>
+          <form class="form-grid" id="profileForm">
+            <div class="field"><label>Store name</label><input id="profileName" required><span class="error"></span></div>
+            <div class="field"><label>Email</label><input id="profileEmail" type="email" required><span class="error"></span></div>
+            <div class="field"><label>Phone</label><input id="profilePhone"><span class="error"></span></div>
+            <div class="field"><label>Market area</label><input id="profileMarket"><span class="error"></span></div>
+            <div class="field"><label>Preferred category</label><select id="profileCategory"><option>Fruits &amp; Vegetables</option><option>Vegetables</option><option>Fruits</option></select><span class="error"></span></div>
+            <div class="field full"><button class="btn primary" type="submit">Save Profile</button></div>
+          </form>
+        </div>
+        <aside class="panel">
+          <div class="panel-head"><h2>Farmer Connection</h2><span class="pill">Live</span></div>
+          <div class="farmers-grid" id="farmersGrid" style="grid-template-columns:1fr;"></div>
+        </aside>
+      </section>
+    `));
+  </script>
+  <script src="../../js/app.js"></script>
+</body>
+</html>
