@@ -45,11 +45,7 @@ function dashboardShell(activePage, title, subtitle, content) {
             <span class="nav-icon">👤</span> Profile
           </a>
         </nav>
-        <div class="sidebar-card">
-          <strong>Cash-only marketplace</strong>
-          <p>Buy directly from farmers and settle payment in cash at pickup or delivery.</p>
-          <a class="btn primary" href="marketplace.html">Buy Products</a>
-        </div>
+
         <div class="sidebar-footer">
           <a class="nav-link logout-link" href="#" id="sidebarLogout">
             <span class="nav-icon">🚪</span> Logout

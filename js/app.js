@@ -274,6 +274,26 @@ function setupShell() {
     location.href = "../../login.html";
   });
 
+  // Global Search logic
+  const globalSearch = $("#globalSearch");
+  globalSearch?.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      const term = globalSearch.value.trim();
+      if (!term) return;
+
+      const onMarketplace = location.pathname.includes("marketplace.html");
+      if (onMarketplace) {
+        const localSearch = $("#productSearch");
+        if (localSearch) {
+          localSearch.value = term;
+          localSearch.dispatchEvent(new Event("input"));
+        }
+      } else {
+        location.href = `marketplace.html?search=${encodeURIComponent(term)}`;
+      }
+    }
+  });
+
   updateCartBadge();
 }
 
@@ -291,6 +311,8 @@ function productCard(product) {
         <p class="muted">${product.farmer} - ${product.quantity}</p>
         <div class="card-row">
           <span class="price">${money(product.price)}/${product.unit}</span>
+          <button class="btn primary" data-add-cart="${product.id}">Add</button>
+        </div>
           <button class="btn primary" data-add-cart="${product.id}">Add</button>
         </div>
       </div>
@@ -312,6 +334,16 @@ function renderMarketplace() {
     const minPrice = $("#minPriceFilter")?.value || "";
     const maxPrice = $("#maxPriceFilter")?.value || "";
     const sort = $("#sortFilter")?.value || "newest";
+    
+    // Check URL for search param if it's the first render
+    const urlParams = new URLSearchParams(location.search);
+    const urlSearch = urlParams.get("search");
+    if (urlSearch && !$("#productSearch").value) {
+      $("#productSearch").value = urlSearch;
+      // Clean URL so refresh doesn't keep the search term if cleared manually
+      window.history.replaceState({}, document.title, location.pathname);
+    }
+
     const query = ($("#productSearch")?.value || "").trim();
 
     if (minPrice && maxPrice && Number(minPrice) > Number(maxPrice)) {
@@ -345,13 +377,18 @@ function renderMarketplace() {
 function renderDashboard() {
   const recent = $("#recentOrders");
   if (recent) {
-    const recentOrders = retailerOrders.length ? retailerOrders.slice(0, 4).map(order => ({
+    const recentOrders = retailerOrders.slice(0, 4).map(order => ({
       id: order._id?.slice(-6).toUpperCase() || "ORDER",
       type: "purchase",
       item: order.product?.name || "Order item",
       status: order.orderStatus,
       date: new Date(order.createdAt).toLocaleDateString("en-IN"),
-    })) : data.orders.slice(0, 4);
+    }));
+
+    if (!recentOrders.length) {
+      recent.innerHTML = '<div class="empty-state" style="padding:20px;text-align:center;color:#888;">No recent orders yet.</div>';
+      return;
+    }
 
     recent.innerHTML = recentOrders.map(order => `
       <div class="order-row">
@@ -365,12 +402,17 @@ function renderDashboard() {
   }
 
   const statCards = $$(".stats-grid .stat-card strong");
-  if (statCards.length >= 4 && retailerOrders.length) {
-    const total = retailerOrders.reduce((sum, order) => sum + Number(order.totalPrice || 0), 0);
-    const farmers = new Set(retailerOrders.map(order => order.farmer?._id || order.farmer?.email).filter(Boolean));
-    statCards[0].textContent = money(total);
-    statCards[2].textContent = farmers.size;
-    statCards[3].textContent = retailerOrders.length;
+  if (statCards.length >= 3) {
+    // 1. Total Purchases (from retailerOrders)
+    const totalPurchases = retailerOrders.reduce((sum, order) => sum + Number(order.totalPrice || 0), 0);
+    statCards[0].textContent = money(totalPurchases);
+
+    // 2. Active Farmers (Unique farmers in the marketplace)
+    const uniqueFarmers = new Set(products.map(p => p.farmer).filter(Boolean));
+    statCards[1].textContent = uniqueFarmers.size || 0;
+
+    // 3. Recent Orders count
+    statCards[2].textContent = retailerOrders.length;
   }
 
   const chartCanvas = $("#salesChart");
@@ -430,6 +472,10 @@ function renderCart() {
   $$("[data-inc]").forEach(button => button.addEventListener("click", () => adjustCart(button.dataset.inc, 1)));
   $$("[data-dec]").forEach(button => button.addEventListener("click", () => adjustCart(button.dataset.dec, -1)));
   $$("[data-remove]").forEach(button => button.addEventListener("click", () => removeCart(button.dataset.remove)));
+}
+
+function removeCart(id) {
+  adjustCart(id, -Infinity);
 }
 
 async function adjustCart(id, delta) {
@@ -552,48 +598,6 @@ function validateFields(form) {
     }
   });
   return hasError;
-}
-
-function renderSellProducts() {
-  const list = $("#listedProducts");
-  const form = $("#sellForm");
-  const render = () => {
-    const items = getListedProducts();
-    list.innerHTML = items.map(item => `
-      <div class="listed-row">
-        <img src="${item.image}" alt="${item.name}">
-        <div>
-          <strong>${item.name}</strong>
-          <p class="muted">${item.quantity}</p>
-        </div>
-        <div class="qty-controls">
-          <span class="price">${money(item.price)}/kg</span>
-          <button class="btn danger" data-delete-listed="${item.id}">Delete</button>
-        </div>
-      </div>`).join("");
-    $$("[data-delete-listed]").forEach(button => button.addEventListener("click", () => {
-      saveListedProducts(getListedProducts().filter(item => item.id !== button.dataset.deleteListed));
-      render();
-    }));
-  };
-
-  form?.addEventListener("submit", event => {
-    event.preventDefault();
-    if (validateFields(form)) return;
-    const product = {
-      id: `listed-${Date.now()}`,
-      name: $("#sellName").value.trim(),
-      price: Number($("#sellPrice").value),
-      quantity: $("#sellQuantity").value.trim(),
-      image: $("#sellImage").value.trim() || "https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?auto=format&fit=crop&w=700&q=80"
-    };
-    saveListedProducts([product, ...getListedProducts()]);
-    form.reset();
-    render();
-    showToast("Product listed for local cash sales.");
-  });
-
-  if (list) render();
 }
 
 function renderFarmers() {
@@ -764,12 +768,12 @@ async function init() {
 
   setupShell();
   await loadCart();
+  await loadProducts(); // Load products first for farmer count
   await loadRetailerOrders();
   renderDashboard();
   renderMarketplace();
   renderCart();
   renderCheckout();
-  renderSellProducts();
   renderFarmers();
   renderOrders();
   renderProfile();
