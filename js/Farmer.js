@@ -1,9 +1,9 @@
 // ── NAVIGATION ────────────────────────────────────────────
 function goTo(pageId){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+pageId)?.classList.add('active');
-  document.querySelectorAll('#sidebar .side-menu li').forEach(li=>{
-    li.classList.toggle('active', li.dataset.page===pageId);
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("page-"+pageId)?.classList.add("active");
+  document.querySelectorAll("#sidebar .side-menu li").forEach(li=>{
+    li.classList.toggle("active", li.dataset.page===pageId);
   });
 }
 
@@ -13,21 +13,7 @@ document.querySelectorAll('#sidebar .side-menu li').forEach(li=>{
     if(li.dataset.page) goTo(li.dataset.page);
   });
 });
-// ── NAVIGATION ────────────────────────────────────────────
-function goTo(pageId){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+pageId)?.classList.add('active');
-  document.querySelectorAll('#sidebar .side-menu li').forEach(li=>{
-    li.classList.toggle('active', li.dataset.page===pageId);
-  });
-}
 
-document.querySelectorAll('#sidebar .side-menu li').forEach(li=>{
-  li.addEventListener('click',e=>{
-    e.preventDefault();
-    if(li.dataset.page) goTo(li.dataset.page);
-  });
-});
 
 // ── SIDEBAR TOGGLE ────────────────────────────────────────
 document.getElementById('menuToggle')?.addEventListener('click',()=>{
@@ -35,7 +21,7 @@ document.getElementById('menuToggle')?.addEventListener('click',()=>{
 });
 
 // ── API / AUTH HELPERS ───────────────────────────────
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://127.0.0.1:5000/api";
 const API_ORIGIN = API_BASE_URL.replace("/api", "");
 const AUTH_STORAGE_KEY = "agriAuthToken";
 
@@ -273,10 +259,14 @@ document.getElementById('confirmDeleteBtn')?.addEventListener('click', async () 
 
   try {
     if (isMember) {
-      // Just remove the row from the DOM (local-only team management)
-      cardEl?.remove();
+      const response = await apiRequest(`/team/${productId}`, { method: 'DELETE' });
+      if (!response.ok) {
+        showFarmerToast('Unable to remove team member.');
+        return;
+      }
       modal?.classList.remove('open');
       showFarmerToast('Team member removed.');
+      loadTeamMembers();
     } else {
       const response = await apiRequest(`/products/${productId}`, { method: 'DELETE' });
       if (!response.ok) {
@@ -752,94 +742,149 @@ document.getElementById('farmerSearchInput')?.addEventListener('keydown', functi
   }
 });
 
-// ── ADD MEMBER ─────────────────────────────────────────────
-document.getElementById('addMemberForm')?.addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  const name     = document.getElementById('memberName').value.trim();
-  const role     = document.getElementById('memberRole').value;
-  const phone    = document.getElementById('memberPhone').value.trim();
-  const joinRaw  = document.getElementById('memberJoinDate').value; // e.g. "2024-05"
-
-  if (!name || !role || !phone || !joinRaw) return;
-
-  // Format join date: "2024-05" → "May 2024"
-  const [year, month] = joinRaw.split('-');
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const joinDate = `${months[parseInt(month, 10) - 1]} ${year}`;
-
-  // Generate initials and a colour from name
-  const initials = name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
-  const colours = [
-    { bg:'#D8F3DC', fg:'#2D6A4F' }, { bg:'#FFF3CD', fg:'#92600A' },
-    { bg:'#EFF6FF', fg:'#2563EB' }, { bg:'#FEE2E2', fg:'#DC2626' },
-    { bg:'#F3E8FF', fg:'#7C3AED' }, { bg:'#ECFDF5', fg:'#065F46' },
-  ];
-  const colour = colours[Math.floor(Math.random() * colours.length)];
-
-  // Build the new row
-  const row = document.createElement('tr');
-  row.innerHTML = `
-    <td><div class="user-cell">
-      <div class="avatar-placeholder" style="background:${colour.bg};color:${colour.fg};">${initials}</div>${name}
-    </div></td>
-    <td>${role}</td>
-    <td>${phone}</td>
-    <td>${joinDate}</td>
-    <td><span class="badge-status badge-active">Active</span></td>
-    <td style="display:flex;gap:6px;">
-      <button class="btn-sm edit" style="flex:none;padding:5px 10px;"
-        onclick="openAssignRole(this,'${name}','${role}')"><i class='bx bx-transfer'></i> Role</button>
-      <button class="btn-sm del" style="flex:none;padding:5px 10px;"
-        onclick="removeMember(this,'${name}')"><i class='bx bx-trash'></i></button>
-    </td>
-  `;
-
-  document.getElementById('teamTableBody')?.appendChild(row);
-  document.getElementById('addMemberModal')?.classList.remove('open');
-  document.getElementById('addMemberForm')?.reset();
-  showFarmerToast(`${name} added to the team!`);
-});
-
 // ── TEAM MANAGEMENT ───────────────────────────────────────
-let assignRoleRowRef = null;
+async function loadTeamMembers() {
+  const tableBody = document.getElementById('teamTableBody');
+  if (!tableBody) return;
 
-function openAssignRole(btn, memberName, currentRole) {
-  assignRoleRowRef = btn.closest('tr');
+  try {
+    const [teamRes, profileRes] = await Promise.all([
+      apiRequest('/team'),
+      apiRequest('/users/profile')
+    ]);
+
+    if (!teamRes.ok || !profileRes.ok) throw new Error('Failed to fetch data');
+
+    const teamPayload = await teamRes.json();
+    const profilePayload = await profileRes.json();
+    
+    const members = teamPayload.data || [];
+    const owner = profilePayload.data || {};
+
+    // Combine owner with team members
+    const ownerEntry = {
+      _id: 'owner',
+      name: (owner.name || 'Farm Owner') + ' (You)',
+      role: 'Farm Owner',
+      phone: owner.phone || 'N/A',
+      joinDate: owner.createdAt || new Date(),
+      status: 'Active',
+      isOwner: true
+    };
+
+    const allMembers = [ownerEntry, ...members];
+
+    tableBody.innerHTML = allMembers.map(m => {
+      const initials = m.name.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase();
+      const joinDate = new Date(m.joinDate).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
+      const statusClass = m.status === 'Active' ? 'badge-active' : (m.status === 'On Leave' ? 'badge-onleave' : 'badge-inactive');
+      
+      return `
+        <tr>
+          <td><div class="user-cell"><div class="avatar-placeholder">${initials}</div>${m.name}</div></td>
+          <td>${m.role}</td>
+          <td>${m.phone}</td>
+          <td>${joinDate}</td>
+          <td><span class="badge-status ${statusClass}">${m.status}</span></td>
+          <td style="display:flex;gap:6px;">
+            ${!m.isOwner ? `
+              <button class="btn-sm edit" style="flex:none;padding:5px 10px;" onclick="openAssignRole(this, '${m._id}', '${m.name}', '${m.role}')"><i class='bx bx-transfer'></i> Role</button>
+              <button class="btn-sm del" style="flex:none;padding:5px 10px;" onclick="removeMember('${m._id}', '${m.name}')"><i class='bx bx-trash'></i></button>
+            ` : `
+              <button class="btn-sm edit" style="flex:none;padding:5px 10px;" onclick="goTo('profile')"><i class='bx bx-user'></i> Profile</button>
+            `}
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+  } catch (err) {
+    console.error('Team Load Error:', err);
+    tableBody.innerHTML = '<tr><td colspan="6" style="padding:40px; text-align:center; color:#ef4444;">Error loading team members. Please refresh.</td></tr>';
+  }
+}
+
+let assignRoleMemberId = null;
+function openAssignRole(btn, memberId, memberName, currentRole) {
+  assignRoleMemberId = memberId;
   document.getElementById('assignRoleMemberName').textContent = memberName;
   const sel = document.getElementById('assignRoleSelect');
   if (sel) sel.value = currentRole;
   document.getElementById('assignRoleModal')?.classList.add('open');
 }
 
-document.getElementById('confirmAssignRoleBtn')?.addEventListener('click', () => {
+document.getElementById('confirmAssignRoleBtn')?.addEventListener('click', async () => {
   const newRole = document.getElementById('assignRoleSelect')?.value;
-  if (!newRole || !assignRoleRowRef) return;
-  // Update the Role cell (2nd <td>)
-  const roleCell = assignRoleRowRef.cells[1];
-  if (roleCell) roleCell.textContent = newRole;
-  // Also update the Role button's onclick to reflect new role
-  const roleBtn = assignRoleRowRef.querySelector('.btn-sm.edit');
-  const nameCell = assignRoleRowRef.cells[0];
-  const memberName = nameCell?.querySelector('.user-cell')?.textContent?.trim() || '';
-  if (roleBtn) roleBtn.setAttribute('onclick', `openAssignRole(this, '${memberName}', '${newRole}')`);
-  document.getElementById('assignRoleModal')?.classList.remove('open');
-  showFarmerToast(`Role updated to "${newRole}" successfully.`);
-  assignRoleRowRef = null;
+  if (!newRole || !assignRoleMemberId) return;
+
+  try {
+    const res = await apiRequest(`/team/${assignRoleMemberId}`, {
+      method: 'PUT',
+      body: { role: newRole }
+    });
+    if (res.ok) {
+      showFarmerToast('Role updated successfully.');
+      document.getElementById('assignRoleModal')?.classList.remove('open');
+      loadTeamMembers();
+    }
+  } catch (err) {
+    showFarmerToast('Error updating role.');
+  }
 });
 
-function removeMember(btn, memberName) {
-  const row = btn.closest('tr');
-  if (!row) return;
-  // Show the styled delete confirmation modal reusing the same pattern
-  productToDelete = { id: null, el: row, isMember: true };
+function removeMember(memberId, memberName) {
+  productToDelete = { id: memberId, el: null, isMember: true };
   const modal = document.getElementById('deleteConfirmModal');
   const heading = modal?.querySelector('h3');
   const msg = modal?.querySelector('p');
-  if (heading) heading.textContent = `Remove ${memberName}?`;
+  if (heading) heading.textContent = "Remove " + memberName + "?";
   if (msg) msg.textContent = 'This will remove the member from your team. This cannot be undone.';
   modal?.classList.add('open');
 }
+
+// Add Member Form
+document.getElementById('addMemberForm')?.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const name  = document.getElementById('memberName').value.trim();
+  const role  = document.getElementById('memberRole').value;
+  const phone = document.getElementById('memberPhone').value.trim();
+  
+  if (!name || !role || !phone) {
+    showFarmerToast('Please fill all required fields.');
+    return;
+  }
+
+  const btn = e.target.querySelector('button[type="submit"]');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Adding...';
+  }
+
+  try {
+    const res = await apiRequest('/team', {
+      method: 'POST',
+      body: { name, role, phone }
+    });
+    
+    if (res.ok) {
+      showFarmerToast(name + ' added to the team!');
+      document.getElementById('addMemberModal')?.classList.remove('open');
+      document.getElementById('addMemberForm')?.reset();
+      loadTeamMembers();
+    } else {
+      const errData = await res.json().catch(() => ({}));
+      showFarmerToast('Error: ' + (errData.message || 'Failed to add member'));
+    }
+  } catch (err) {
+    console.error('Add Member Error:', err);
+    showFarmerToast('Network error while adding member.');
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = 'Add Member';
+    }
+  }
+});
 
 // Restore delete modal text after use
 document.getElementById('deleteConfirmModal')?.addEventListener('click', (e) => {
@@ -885,13 +930,23 @@ document.getElementById('markAllReadBtn')?.addEventListener('click', () => {
 // ── PROFILE PAGE ──────────────────────────────────────────
 const FARMER_PROFILE_KEY = 'agrifarmer_profile';
 
-function loadFarmerProfile() {
+async function loadFarmerProfile() {
   const auth = getAuth();
-  const saved = JSON.parse(localStorage.getItem(FARMER_PROFILE_KEY) || '{}');
+  let dbProfile = {};
 
-  // Read-only: from auth token
-  const name  = auth?.user?.name  || '';
-  const email = auth?.user?.email || '';
+  try {
+    const response = await apiRequest('/users/profile');
+    if (response.ok) {
+      const payload = await response.json();
+      dbProfile = payload.data || {};
+    }
+  } catch (err) {
+    console.warn('Could not fetch profile from DB:', err.message);
+  }
+
+  // Read-only: from auth token (or DB if synced)
+  const name  = dbProfile.name  || auth?.user?.name  || '';
+  const email = dbProfile.email || auth?.user?.email || '';
   const initials = name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase() || '?';
 
   // Hero banner
@@ -901,7 +956,7 @@ function loadFarmerProfile() {
   if (heroName) heroName.textContent = name || '—';
   const heroMeta = document.getElementById('profileHeroMeta');
   if (heroMeta) {
-    const loc = saved.location || 'AgriMart';
+    const loc = dbProfile.location || 'AgriMart';
     heroMeta.textContent = `🌾 Farmer · ${loc}`;
   }
 
@@ -912,43 +967,80 @@ function loadFarmerProfile() {
   // Personal info fields
   if (document.getElementById('profileName'))  document.getElementById('profileName').value  = name;
   if (document.getElementById('profileEmail')) document.getElementById('profileEmail').value = email;
-  if (document.getElementById('profilePhone'))    document.getElementById('profilePhone').value    = saved.phone    || '';
-  if (document.getElementById('profileLocation')) document.getElementById('profileLocation').value = saved.location || '';
+  if (document.getElementById('profilePhone'))    document.getElementById('profilePhone').value    = dbProfile.phone    || '';
+  if (document.getElementById('profileLocation')) document.getElementById('profileLocation').value = dbProfile.location || '';
 
   // Farm details fields
-  if (document.getElementById('profileFarmName'))      document.getElementById('profileFarmName').value      = saved.farmName      || '';
-  if (document.getElementById('profileFarmSize'))      document.getElementById('profileFarmSize').value      = saved.farmSize      || '';
-  if (document.getElementById('profileCrops'))         document.getElementById('profileCrops').value         = saved.crops         || '';
-  if (document.getElementById('profileCertification')) document.getElementById('profileCertification').value = saved.certification || '';
+  if (document.getElementById('profileFarmName'))      document.getElementById('profileFarmName').value      = dbProfile.farmName      || '';
+  if (document.getElementById('profileFarmSize'))      document.getElementById('profileFarmSize').value      = dbProfile.farmSize      || '';
+  if (document.getElementById('profileCrops'))         document.getElementById('profileCrops').value         = dbProfile.primaryCrops || '';
+  if (document.getElementById('profileCertification')) document.getElementById('profileCertification').value = dbProfile.certification || '';
 }
 
-// Save Personal Info
-document.getElementById('savePersonalInfoBtn')?.addEventListener('click', () => {
-  const saved = JSON.parse(localStorage.getItem(FARMER_PROFILE_KEY) || '{}');
-  saved.phone    = document.getElementById('profilePhone')?.value.trim()    || '';
-  saved.location = document.getElementById('profileLocation')?.value.trim() || '';
-  localStorage.setItem(FARMER_PROFILE_KEY, JSON.stringify(saved));
-  // Update hero meta
-  const heroMeta = document.getElementById('profileHeroMeta');
-  if (heroMeta) heroMeta.textContent = `🌾 Farmer · ${saved.location || 'AgriMart'}`;
-  showFarmerToast('Personal info saved!');
-});
+
+async function handleSavePersonalInfo() {
+  console.log('Save Personal Info button clicked');
+  const data = {
+    phone: document.getElementById('profilePhone')?.value.trim() || '',
+    location: document.getElementById('profileLocation')?.value.trim() || ''
+  };
+  console.log('Saving data:', data);
+
+  try {
+    const response = await apiRequest('/users/profile', {
+      method: 'PUT',
+      body: data
+    });
+
+    console.log('Response status:', response.status);
+    if (response.ok) {
+      const payload = await response.json();
+      const updatedUser = payload.data || {};
+      const heroMeta = document.getElementById('profileHeroMeta');
+      if (heroMeta) heroMeta.textContent = '🌾 Farmer · ' + (updatedUser.location || 'AgriMart');
+      showFarmerToast('Personal info saved to database!');
+    } else {
+      const errPayload = await response.json().catch(() => ({}));
+      console.error('Update failed:', errPayload);
+      showFarmerToast('Error: ' + (errPayload.message || 'Update failed'));
+    }
+  } catch (err) {
+    console.error('Save error:', err);
+    showFarmerToast('Failed to save info: ' + err.message);
+  }
+}
+
+
 
 // Cancel Personal Info
-document.getElementById('cancelPersonalInfoBtn')?.addEventListener('click', () => {
-  loadFarmerProfile();
-});
 
-// Save Farm Details
-document.getElementById('saveFarmDetailsBtn')?.addEventListener('click', () => {
-  const saved = JSON.parse(localStorage.getItem(FARMER_PROFILE_KEY) || '{}');
-  saved.farmName      = document.getElementById('profileFarmName')?.value.trim()      || '';
-  saved.farmSize      = document.getElementById('profileFarmSize')?.value.trim()      || '';
-  saved.crops         = document.getElementById('profileCrops')?.value.trim()         || '';
-  saved.certification = document.getElementById('profileCertification')?.value.trim() || '';
-  localStorage.setItem(FARMER_PROFILE_KEY, JSON.stringify(saved));
-  showFarmerToast('Farm details saved!');
-});
+
+async function handleSaveFarmDetails() {
+  const data = {
+    farmName: document.getElementById('profileFarmName')?.value.trim() || '',
+    farmSize: document.getElementById('profileFarmSize')?.value.trim() || '',
+    primaryCrops: document.getElementById('profileCrops')?.value.trim() || '',
+    certification: document.getElementById('profileCertification')?.value.trim() || ''
+  };
+
+  try {
+    const response = await apiRequest('/users/profile', {
+      method: 'PUT',
+      body: data
+    });
+
+    if (response.ok) {
+      showFarmerToast('Farm details saved to database!');
+    } else {
+      const errPayload = await response.json().catch(() => ({}));
+      showFarmerToast('Error: ' + (errPayload.message || 'Update failed'));
+    }
+  } catch (err) {
+    showFarmerToast('Failed to save farm details: ' + err.message);
+  }
+}
+
+
 
 // ── DARK MODE ─────────────────────────────────────────────
 const darkToggle = document.getElementById('darkToggle');
@@ -974,11 +1066,24 @@ window.addEventListener('resize',()=>{
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadFarmerDashboardAnalytics();
-  loadFarmerProducts();
-  loadFarmerProfile();
-  startNotificationPolling();
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    console.log('Farmer.js initializing...');
+    loadFarmerDashboardAnalytics();
+    loadFarmerProducts();
+    loadTeamMembers();
+    await loadFarmerProfile();
+    
+    // Attach listeners after profile is loaded
+    document.getElementById('savePersonalInfoBtn')?.addEventListener('click', handleSavePersonalInfo);
+    document.getElementById('saveFarmDetailsBtn')?.addEventListener('click', handleSaveFarmDetails);
+    document.getElementById('cancelPersonalInfoBtn')?.addEventListener('click', loadFarmerProfile);
+    
+    startNotificationPolling();
+    console.log('Farmer.js ready');
+  } catch (err) {
+    console.warn('Initialization issue:', err.message);
+  }
 });
 
 // ── REAL-TIME NOTIFICATIONS (POLLING) ─────────────────────
@@ -1050,6 +1155,9 @@ function prependNotification(title, desc, time, orderId = null) {
 }
 
 async function pollForNewOrders() {
+  const notifList = document.getElementById('notifList');
+  const badgeEl = document.querySelector('.nav-btn .badge');
+  
   try {
     const res = await apiRequest('/orders/farmer-orders');
     if (!res.ok) return;
@@ -1058,16 +1166,23 @@ async function pollForNewOrders() {
 
     const seen = getSeenOrderIds();
     const isFirstRun = seen.size === 0;
+    
+    // On first run, clear any hardcoded/fake notifications from HTML
+    if (isFirstRun && notifList) {
+      notifList.innerHTML = '';
+    }
+
     let newCount = 0;
 
-    orders.forEach(order => {
-      if (seen.has(order._id)) return;
+    // Process orders in reverse (oldest to newest) to maintain correct order when prepending
+    const sortedOrders = [...orders].sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+    sortedOrders.forEach(order => {
+      const isNew = !seen.has(order._id);
+      if (!isNew) return;
+      
       seen.add(order._id);
 
-      // Don't show toast/notification on very first poll (just seed seen list)
-      if (isFirstRun) return;
-
-      newCount++;
       const productName  = order.product?.name || 'a product';
       const retailerName = order.retailer?.name || 'A retailer';
       const amount       = formatCurrency(order.totalPrice);
@@ -1077,27 +1192,28 @@ async function pollForNewOrders() {
       const title = `New Order Received 🎉`;
       const desc  = `${retailerName} ordered ${qty} of ${productName} — ${amount}`;
 
+      // Only show toast and increment badge if not the very first load
+      if (!isFirstRun) {
+        newCount++;
+        showFarmerToast(`📦 New order: ${productName} from ${retailerName}`);
+      }
+
       prependNotification(title, desc, when, order._id);
-      showFarmerToast(`📦 New order: ${productName} from ${retailerName}`);
     });
 
     saveSeenOrderIds(seen);
 
-    // Update bell badge with total unread (pending orders = new orders)
     if (!isFirstRun && newCount > 0) {
-      const badgeEl = document.querySelector('.nav-btn .badge');
       const current = parseInt(badgeEl?.textContent || '0', 10) || 0;
       updateNotifBadge(current + newCount);
     }
 
-    // On first run, seed badge from real pending count
     if (isFirstRun) {
-      const pending = orders.filter(o => o.orderStatus === 'pending').length;
-      updateNotifBadge(pending);
+      const pendingCount = orders.filter(o => o.orderStatus === 'pending').length;
+      updateNotifBadge(pendingCount);
     }
 
   } catch (err) {
-    // Silently fail — don't break the dashboard
     console.warn('Notification poll failed:', err.message);
   }
 }

@@ -482,63 +482,10 @@
               </tr>
             </thead>
             <tbody id="teamTableBody">
+              <!-- Team members will be loaded here from the database -->
               <tr>
-                <td>
-                  <div class="user-cell">
-                    <div class="avatar-placeholder" style="background:#D8F3DC;color:#2D6A4F;">R</div>Rajan Patel (You)
-                  </div>
-                </td>
-                <td>Farm Owner</td>
-                <td>+91 98765 43210</td>
-                <td>Jan 2024</td>
-                <td><span class="badge-status badge-active">Active</span></td>
-                <td style="display:flex;gap:6px;">
-                  <button class="btn-sm edit" style="flex:none;padding:5px 10px;" onclick="openAssignRole(this,'Rajan Patel','Farm Owner')"><i class='bx bx-transfer'></i> Role</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="user-cell">
-                    <div class="avatar-placeholder" style="background:#FFF3CD;color:#92600A;">V</div>Vijay Yadav
-                  </div>
-                </td>
-                <td>Field Manager</td>
-                <td>+91 87654 32109</td>
-                <td>Mar 2024</td>
-                <td><span class="badge-status badge-active">Active</span></td>
-                <td style="display:flex;gap:6px;">
-                  <button class="btn-sm edit" style="flex:none;padding:5px 10px;" onclick="openAssignRole(this,'Vijay Yadav','Field Manager')"><i class='bx bx-transfer'></i> Role</button>
-                  <button class="btn-sm del" style="flex:none;padding:5px 10px;" onclick="removeMember(this,'Vijay Yadav')"><i class='bx bx-trash'></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="user-cell">
-                    <div class="avatar-placeholder" style="background:#EFF6FF;color:#2563EB;">S</div>Sita Devi
-                  </div>
-                </td>
-                <td>Packing Supervisor</td>
-                <td>+91 76543 21098</td>
-                <td>Jun 2024</td>
-                <td><span class="badge-status badge-active">Active</span></td>
-                <td style="display:flex;gap:6px;">
-                  <button class="btn-sm edit" style="flex:none;padding:5px 10px;" onclick="openAssignRole(this,'Sita Devi','Packing Supervisor')"><i class='bx bx-transfer'></i> Role</button>
-                  <button class="btn-sm del" style="flex:none;padding:5px 10px;" onclick="removeMember(this,'Sita Devi')"><i class='bx bx-trash'></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="user-cell">
-                    <div class="avatar-placeholder" style="background:#FEE2E2;color:#DC2626;">M</div>Mohan Lal
-                  </div>
-                </td>
-                <td>Logistics</td>
-                <td>+91 65432 10987</td>
-                <td>Sep 2024</td>
-                <td><span class="badge-status badge-inactive">On Leave</span></td>
-                <td style="display:flex;gap:6px;">
-                  <button class="btn-sm edit" style="flex:none;padding:5px 10px;" onclick="openAssignRole(this,'Mohan Lal','Logistics')"><i class='bx bx-transfer'></i> Role</button>
-                  <button class="btn-sm del" style="flex:none;padding:5px 10px;" onclick="removeMember(this,'Mohan Lal')"><i class='bx bx-trash'></i></button>
+                <td colspan="6" style="padding:40px; text-align:center; color:#888;">
+                  Loading team members...
                 </td>
               </tr>
             </tbody>
@@ -621,45 +568,10 @@
 
       <div class="card">
         <div class="notif-list" id="notifList">
-          <div class="notif-item">
-            <div class="notif-dot"></div>
-            <div>
-              <div class="notif-title">New Order Received 🎉</div>
-              <div class="notif-desc">Amit Shah placed an order for 200kg Wheat — ₹12,000</div>
-              <div class="notif-time">2 hours ago</div>
-            </div>
-          </div>
-          <div class="notif-item">
-            <div class="notif-dot"></div>
-            <div>
-              <div class="notif-title">Payment Confirmed ✅</div>
-              <div class="notif-desc">Order #1021 payment of ₹800 has been received</div>
-              <div class="notif-time">5 hours ago</div>
-            </div>
-          </div>
-          <div class="notif-item">
-            <div class="notif-dot"></div>
-            <div>
-              <div class="notif-title">Low Stock Alert ⚠️</div>
-              <div class="notif-desc">Red Onions stock is below 10kg. Consider restocking.</div>
-              <div class="notif-time">Yesterday</div>
-            </div>
-          </div>
-          <div class="notif-item">
-            <div class="notif-dot read"></div>
-            <div>
-              <div class="notif-title">Review Received ⭐</div>
-              <div class="notif-desc">Neha Sharma left a 5-star review: "Excellent quality potatoes!"</div>
-              <div class="notif-time">2 days ago</div>
-            </div>
-          </div>
-          <div class="notif-item">
-            <div class="notif-dot read"></div>
-            <div>
-              <div class="notif-title">Delivery Confirmed 🚚</div>
-              <div class="notif-desc">Order #1019 has been delivered to Kavita Joshi</div>
-              <div class="notif-time">3 days ago</div>
-            </div>
+          <!-- Real notifications will be loaded here from the database -->
+          <div style="padding:40px; text-align:center; color:#888;">
+            <i class='bx bx-bell-off' style="font-size:2rem; display:block; margin-bottom:10px;"></i>
+            No active notifications from your store.
           </div>
         </div>
       </div>

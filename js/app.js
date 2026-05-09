@@ -621,12 +621,23 @@ function renderFarmers() {
   $$("[data-connect], [data-chat]").forEach(button => button.addEventListener("click", () => showToast(`${button.textContent} request ready for ${button.dataset.connect || button.dataset.chat}. UI only.`)));
 }
 
-function renderProfile() {
+async function renderProfile() {
   const profilePage = document.body.dataset.page === 'profile';
   if (!profilePage) return;
-  const auth = getAuth();
-  if (!auth?.user) return;
-  const { name, email } = auth.user;
+  
+  let user = getAuth()?.user;
+  try {
+    const res = await apiRequest("/users/profile");
+    if (res.ok) {
+      const payload = await res.json();
+      user = payload.data;
+    }
+  } catch (e) {
+    console.warn("Profile fetch failed", e);
+  }
+
+  if (!user) return;
+  const { name, email } = user;
   const initials = name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
 
   const avatarEl = document.getElementById('profileAvatar');
@@ -639,9 +650,29 @@ function renderProfile() {
   if (nameInput) nameInput.value = name;
   if (emailInput) emailInput.value = email || '';
 
-  document.getElementById('profileForm')?.addEventListener('submit', (e) => {
+  const form = document.getElementById('profileForm');
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    showToast('Profile updated locally. (Backend update coming soon.)');
+    const data = {
+      name: nameInput.value.trim(),
+      email: emailInput.value.trim()
+    };
+
+    try {
+      const res = await apiRequest("/users/profile", {
+        method: "PUT",
+        body: data
+      });
+      if (res.ok) {
+        showToast('Profile updated successfully in database.');
+        // Update local auth if name/email changed
+        const auth = getAuth();
+        auth.user = { ...auth.user, ...data };
+        localStorage.setItem("agriAuthToken", JSON.stringify(auth));
+      }
+    } catch (err) {
+      showToast('Update failed: ' + err.message);
+    }
   });
 }
 
@@ -776,7 +807,7 @@ async function init() {
   renderCheckout();
   renderFarmers();
   renderOrders();
-  renderProfile();
+  await renderProfile();
   await renderProductDetail();
 }
 
