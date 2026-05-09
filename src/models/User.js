@@ -26,6 +26,14 @@ const userSchema = new mongoose.Schema(
       enum: ["farmer", "retailer", "admin"],
       required: true,
     },
+    
+    // Farmer profile fields
+    phone: { type: String, default: "" },
+    location: { type: String, default: "" },
+    farmName: { type: String, default: "" },
+    farmSize: { type: String, default: "" },
+    primaryCrops: { type: String, default: "" },
+    certification: { type: String, default: "" },
   },
   {
     timestamps: true,
